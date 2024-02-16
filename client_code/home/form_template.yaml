@@ -16,6 +16,7 @@ components:
     properties: {text: Register, role: null}
     type: Button
     layout_properties: {grid_position: 'ZCHWWW,KKUICP'}
+    event_bindings: {click: button_register_click}
 - type: FlowPanel
   properties: {}
   name: navbar_links
