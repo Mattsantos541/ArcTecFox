@@ -8,14 +8,10 @@ components:
   name: content_panel
   layout_properties: {slot: default}
   components:
-  - name: column_panel_content
-    properties: {}
-    type: ColumnPanel
-    layout_properties: {grid_position: 'FHKAWB,KUJLKA'}
   - name: button_register
     properties: {text: Register, role: null}
     type: Button
-    layout_properties: {grid_position: 'ZCHWWW,KKUICP'}
+    layout_properties: {grid_position: 'IIHJMK,XUNBXR'}
     event_bindings: {click: button_register_click}
 - type: FlowPanel
   properties: {}
@@ -30,14 +26,17 @@ components:
     properties: {text: Login}
     type: Link
     layout_properties: {}
+    event_bindings: {click: link_login_click}
   - name: link_account
     properties: {text: Account}
     type: Link
     layout_properties: {}
+    event_bindings: {click: link_account_click}
   - name: link_logout
     properties: {text: Logout}
     type: Link
     layout_properties: {}
+    event_bindings: {click: link_logout_click}
 - name: label_title
   properties: {text: ArcTecFox}
   type: Label
@@ -51,11 +50,14 @@ components:
     properties: {text: Dashboard, foreground: 'theme:White'}
     type: Link
     layout_properties: {grid_position: 'DMNZAJ,BPPHVI'}
+    event_bindings: {click: link_dash_click}
   - name: link_dg
     properties: {text: Data Generation, foreground: 'theme:White'}
     type: Link
     layout_properties: {grid_position: 'CCQTUH,CTBZRQ'}
+    event_bindings: {click: link_dg_click}
   - name: link_scorecard
     properties: {text: Scorecard, foreground: 'theme:White'}
     type: Link
     layout_properties: {grid_position: 'RCDUQZ,ADBCGN'}
+    event_bindings: {click: link_scorecard_click}

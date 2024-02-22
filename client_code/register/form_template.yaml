@@ -1,7 +1,0 @@
-container: {type: ColumnPanel}
-components:
-- name: label_1
-  properties: {text: Register}
-  type: Label
-  layout_properties: {grid_position: 'BAJDZL,DYJXKH'}
-is_package: true
