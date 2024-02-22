@@ -8,16 +8,20 @@ components:
   name: content_panel
   layout_properties: {slot: default}
   components:
-  - name: button_register
-    properties: {text: Register, role: null}
-    type: Button
-    layout_properties: {grid_position: 'IIHJMK,XUNBXR'}
-    event_bindings: {click: button_register_click}
+  - name: label_home
+    properties: {text: Home}
+    type: Label
+    layout_properties: {grid_position: 'IVNSYI,HKRYGC'}
 - type: FlowPanel
   properties: {}
   name: navbar_links
   layout_properties: {slot: nav-right}
   components:
+  - name: link_home
+    properties: {text: Home}
+    type: Link
+    layout_properties: {}
+    event_bindings: {click: link_home_click}
   - name: link_register
     properties: {text: Register}
     type: Link
