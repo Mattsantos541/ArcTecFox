@@ -1,7 +1,0 @@
-container: {type: ColumnPanel}
-components:
-- name: label_1
-  properties: {text: dashboard}
-  type: Label
-  layout_properties: {grid_position: 'JATOYA,CXDNGR'}
-is_package: true
