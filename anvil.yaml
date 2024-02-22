@@ -1,8 +1,8 @@
 allow_embedding: false
 package_name: ArcTecFox
-startup: null
+startup: {type: form, module: home}
 name: ArcTecFox
-startup_form: Form1
+startup_form: null
 runtime_options: {version: 2, client_version: '3', server_version: python3-sandbox,
   server_spec: null}
 metadata: {title: ArcTecFox, logo_img: 'asset:F89A759F-19C6-451F-B0E8-8465883A4F6D_1_201_a.jpeg'}

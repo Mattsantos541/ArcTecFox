@@ -1,0 +1,7 @@
+container: {type: ColumnPanel}
+components:
+- name: label_1
+  properties: {text: datagen}
+  type: Label
+  layout_properties: {grid_position: 'BRCSLF,IVINWW'}
+is_package: true

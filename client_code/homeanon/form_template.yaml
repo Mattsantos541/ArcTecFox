@@ -1,0 +1,7 @@
+container: {type: ColumnPanel}
+components:
+- name: label_1
+  properties: {text: homeanon}
+  type: Label
+  layout_properties: {grid_position: 'DEEVKQ,BDRVTO'}
+is_package: true

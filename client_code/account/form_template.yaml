@@ -1,0 +1,7 @@
+container: {type: ColumnPanel}
+components:
+- name: label_1
+  properties: {text: account}
+  type: Label
+  layout_properties: {grid_position: 'RERIDP,KVRMOB'}
+is_package: true
