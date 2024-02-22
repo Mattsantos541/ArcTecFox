@@ -46,6 +46,7 @@ components:
     properties: {text: Vault, foreground: 'theme:White'}
     type: Link
     layout_properties: {grid_position: 'IUTKYV,ADTHYB'}
+    event_bindings: {click: link_vault_click}
   - name: link_datagen
     properties: {text: Data Generation, foreground: 'theme:White'}
     type: Link
