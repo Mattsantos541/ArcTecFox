@@ -28,7 +28,8 @@ roles:
 - name: dense
   components: [TextBox]
 - name: selected
-  components: [Link]
+  components: []
+  display_in_toolbox: false
 color_scheme:
   preset_groups:
   - name: Primary Colour

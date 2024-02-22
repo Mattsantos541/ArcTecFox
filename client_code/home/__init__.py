@@ -11,6 +11,8 @@ class home(homeTemplate):
 
   def link_vault_click(self, **event_args):
     cmpt = vault()
+    self.link_vault.role = 'selected'
 
     self.column_panel_content.clear()
     self.column_panel_content.add_component(cmpt)
+

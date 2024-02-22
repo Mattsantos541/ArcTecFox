@@ -1,7 +1,7 @@
 is_package: true
 container:
   type: HtmlTemplate
-  properties: {html: '@theme:standard-page.html'}
+  properties: {html: '@theme:standard-page.html', role: headline}
 components:
 - type: ColumnPanel
   properties: {}
@@ -43,7 +43,10 @@ components:
     type: Link
     layout_properties: {grid_position: 'WJUEON,FCQDQJ'}
   - name: link_vault
-    properties: {text: Vault, foreground: 'theme:White'}
+    properties:
+      text: Vault
+      foreground: theme:White
+      role: [selected]
     type: Link
     layout_properties: {grid_position: 'IUTKYV,ADTHYB'}
     event_bindings: {click: link_vault_click}
@@ -55,3 +58,4 @@ components:
     properties: {text: Scorecard, foreground: 'theme:White'}
     type: Link
     layout_properties: {grid_position: 'CXCWPO,AMQLXR'}
+custom_component: true
