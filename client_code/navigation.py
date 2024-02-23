@@ -1,9 +1,10 @@
-from ..vault import vault
-from ..homeanon import homeanon
-from ..account import account
-from ..datagen import datagen
-from ..scorecard import scorecard
-from ..homedetails import homedetails
+
+from vault import vault
+from homeanon import homeanon
+from account import account
+from datagen import datagen
+from scorecard import scorecard
+from homedetails import homedetails
 
 __home = None
 def get_form():

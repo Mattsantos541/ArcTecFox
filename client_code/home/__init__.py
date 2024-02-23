@@ -1,6 +1,6 @@
 from ._anvil_designer import homeTemplate
 from anvil import *
-import navigation
+from ..import navigation
 
 
 
