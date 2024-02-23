@@ -25,7 +25,7 @@ def go_datagen():
   form = get_form()
   form.load_component(datagen())
 
-def got_scorecard():
+def go_scorecard():
   form = get_form()
   form.load_component(scorecard())
 

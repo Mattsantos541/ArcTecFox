@@ -11,6 +11,21 @@ class home(homeTemplate):
 
     # Any code you write here will run before the form opens.
   # at loading iof the app
+
+    def link_account_click(self, **event_args):
+      navigation.go_account()
+
+  def link_home_click(self, **event_args):
+    navigation.go_home()
+
+  def link_vault_click(self, **event_args):
+    navigation.go_vault()
+
+  def link_datagen_click(self, **event_args):
+    navigation.go_vault()
+
+  def link_scorecard_click(self, **event_args):
+    navigation.go_scorecard()
     
 
 
@@ -26,3 +41,5 @@ class home(homeTemplate):
   def load_component(self, cmpt):
     self.column_panel_content.clear()
     self.column_panel_content.add_component(cmpt)
+
+
