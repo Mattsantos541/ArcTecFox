@@ -10,10 +10,11 @@ class home(homeTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
-  # at loading iof the app
+    navigation.home = self
+    navigation.go_home()
 
-    def link_account_click(self, **event_args):
-      navigation.go_account()
+  def link_account_click(self, **event_args):
+    navigation.go_account()
 
   def link_home_click(self, **event_args):
     navigation.go_home()
@@ -22,7 +23,7 @@ class home(homeTemplate):
     navigation.go_vault()
 
   def link_datagen_click(self, **event_args):
-    navigation.go_vault()
+    navigation.go_datagen()
 
   def link_scorecard_click(self, **event_args):
     navigation.go_scorecard()

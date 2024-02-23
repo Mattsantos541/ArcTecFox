@@ -6,12 +6,12 @@ from datagen import datagen
 from scorecard import scorecard
 from homedetails import homedetails
 
-__home = None
+home = None
 def get_form():
-  if __home is None:
+  if home is None:
     raise Exception("You must set home form first.")
 
-  return __home
+  return home
 def go_vault():
   form = get_form()
   form.load_component(vault())
