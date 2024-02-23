@@ -5,7 +5,7 @@ from ..homeanon import homeanon
 from ..account import account
 from ..datagen import datagen
 from ..scorecard import scorecard
-from ..
+
 
 
 class home(homeTemplate):
@@ -24,16 +24,13 @@ class home(homeTemplate):
     self.load_component(homeanon())
 
   def link_datagen_click(self, **event_args):
-    """This method is called when the link is clicked"""
-    pass
+    self.load_component(datagen())
 
   def link_scorecard_click(self, **event_args):
-    """This method is called when the link is clicked"""
-    pass
+    self.load_component(scorecard())
 
   def link_account_click(self, **event_args):
-    """This method is called when the link is clicked"""
-    pass
+    self.load_component(account())
 
   def link_signin_click(self, **event_args):
     """This method is called when the link is clicked"""
