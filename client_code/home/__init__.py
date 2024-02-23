@@ -2,6 +2,12 @@ from ._anvil_designer import homeTemplate
 from anvil import *
 from ..vault import vault
 from ..homeanon import homeanon
+from ..account import account
+from ..datagen import datagen
+from ..scorecard import scorecard
+from ..
+
+
 class home(homeTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
