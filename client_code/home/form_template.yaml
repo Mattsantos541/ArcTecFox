@@ -21,14 +21,17 @@ components:
     properties: {text: Account}
     type: Link
     layout_properties: {}
+    event_bindings: {click: link_account_click}
   - name: link_signin
     properties: {text: Sign In}
     type: Link
     layout_properties: {}
+    event_bindings: {click: link_signin_click}
   - name: link_logout
     properties: {text: Logout}
     type: Link
     layout_properties: {}
+    event_bindings: {click: link_logout_click}
 - name: headline_1
   properties: {role: headline, text: ArcTecFox}
   type: Label
@@ -42,6 +45,7 @@ components:
     properties: {text: Home, foreground: 'theme:White'}
     type: Link
     layout_properties: {grid_position: 'WJUEON,FCQDQJ'}
+    event_bindings: {click: link_home_click}
   - name: link_vault
     properties:
       text: Vault
@@ -54,8 +58,10 @@ components:
     properties: {text: Data Generation, foreground: 'theme:White'}
     type: Link
     layout_properties: {grid_position: 'RWRSCL,NAWJSA'}
+    event_bindings: {click: link_datagen_click}
   - name: link_scorecard
     properties: {text: Scorecard, foreground: 'theme:White'}
     type: Link
     layout_properties: {grid_position: 'CXCWPO,AMQLXR'}
+    event_bindings: {click: link_scorecard_click}
 custom_component: true
