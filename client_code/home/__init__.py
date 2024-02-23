@@ -1,6 +1,6 @@
 from ._anvil_designer import homeTemplate
 from anvil import *
-import navigation 
+import navigation
 
 
 
@@ -11,7 +11,7 @@ class home(homeTemplate):
 
     # Any code you write here will run before the form opens.
   # at loading iof the app
-    navigation.go_home()
+    
 
 
 

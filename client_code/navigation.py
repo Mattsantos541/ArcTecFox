@@ -10,7 +10,7 @@ def get_form():
   if __home is None:
     raise Exception("You must set home form first.")
 
-return __home
+  return __home
 def go_vault():
   form = get_form()
   form.load_component(vault())
@@ -31,3 +31,4 @@ def got_scorecard():
 def go_account():
   form = get_form()
   form.load_component(account())
+
