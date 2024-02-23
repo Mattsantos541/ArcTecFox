@@ -1,10 +1,6 @@
 from ._anvil_designer import homeTemplate
 from anvil import *
-from ..vault import vault
-from ..homeanon import homeanon
-from ..account import account
-from ..datagen import datagen
-from ..scorecard import scorecard
+import navigation 
 
 
 
@@ -14,23 +10,10 @@ class home(homeTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
-
-  def link_vault_click(self, **event_args):
-    self.link_vault.role = 'selected'
-    self.load_component(vault())
+  # at loading iof the app
+    navigation.go_home()
 
 
-  def link_home_click(self, **event_args):
-    self.load_component(homeanon())
-
-  def link_datagen_click(self, **event_args):
-    self.load_component(datagen())
-
-  def link_scorecard_click(self, **event_args):
-    self.load_component(scorecard())
-
-  def link_account_click(self, **event_args):
-    self.load_component(account())
 
   def link_signin_click(self, **event_args):
     """This method is called when the link is clicked"""

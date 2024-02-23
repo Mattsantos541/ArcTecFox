@@ -1,0 +1,7 @@
+container: {type: ColumnPanel}
+components:
+- name: headline_1
+  properties: {role: headline, text: homedetails}
+  type: Label
+  layout_properties: {grid_position: 'TVPDIF,WHFRIZ'}
+is_package: true
