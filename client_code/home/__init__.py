@@ -10,6 +10,7 @@ class home(homeTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+    
     navigation.home = self
     navigation.go_home()
 
