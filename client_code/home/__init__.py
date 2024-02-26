@@ -10,7 +10,7 @@ class home(homeTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
-    
+    self.base_title = self.headline_1.text
     navigation.home = self
     navigation.go_home()
 
@@ -43,5 +43,12 @@ class home(homeTemplate):
   def load_component(self, cmpt):
     self.column_panel_content.clear()
     self.column_panel_content.add_component(cmpt)
+
+  def set_active_nav(self, state):
+    self.link_home.role = 'selected' if state == 'home' else None
+    self.link_vault.role = 'selected' if state == 'vault' else None
+    self.link_datagen.role = 'selected' if state == 'datagen' else None
+    self.link_scorecard.role = 'selected' if state == 'scorecard' else None
+    
 
 
