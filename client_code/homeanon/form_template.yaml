@@ -1,22 +1,16 @@
 container: {type: ColumnPanel}
 components:
 - name: label_1
-  properties: {text: homeanon}
+  properties: {text: 'homeanon- Register ', align: center}
   type: Label
   layout_properties: {grid_position: 'DEEVKQ,BDRVTO'}
-- name: column_panel_1
-  properties: {}
-  type: ColumnPanel
-  layout_properties: {grid_position: 'XLTDBH,KQRFWM'}
-  components: []
-- name: card_1
-  properties: {role: card}
-  type: ColumnPanel
-  layout_properties: {grid_position: 'XSSXXT,RHWSIM'}
+- name: flow_panel_1
+  properties: {align: right}
+  type: FlowPanel
+  layout_properties: {grid_position: 'RFKLLW,QTWZUW'}
   components:
-  - name: register
-    properties: {text: Register, role: primary-color}
-    type: Button
-    layout_properties: {grid_position: 'PEFYXR,MDNVFU'}
-    event_bindings: {click: register_click}
+  - name: label_2
+    properties: {align: right}
+    type: Label
+    layout_properties: {}
 is_package: true
