@@ -10,7 +10,7 @@ class homeanon(homeanonTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
-    # Any code you write here will run before the form opens.
 
-  def primary_color_1_click(self, **event_args):
-    anvil.users.signup_with_form()
+
+  def register_click(self, **event_args):
+    anvil.users.signup_with_form(allow_cancel=True)

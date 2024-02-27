@@ -4,9 +4,19 @@ components:
   properties: {text: homeanon}
   type: Label
   layout_properties: {grid_position: 'DEEVKQ,BDRVTO'}
-- name: register
-  properties: {text: Register, role: primary-color}
-  type: Button
-  layout_properties: {grid_position: 'IFUEWF,CRCRPH'}
-  event_bindings: {click: primary_color_1_click}
+- name: column_panel_1
+  properties: {}
+  type: ColumnPanel
+  layout_properties: {grid_position: 'XLTDBH,KQRFWM'}
+  components: []
+- name: card_1
+  properties: {role: card}
+  type: ColumnPanel
+  layout_properties: {grid_position: 'XSSXXT,RHWSIM'}
+  components:
+  - name: register
+    properties: {text: Register, role: primary-color}
+    type: Button
+    layout_properties: {grid_position: 'PEFYXR,MDNVFU'}
+    event_bindings: {click: register_click}
 is_package: true
