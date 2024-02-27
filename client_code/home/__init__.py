@@ -1,5 +1,9 @@
 from ._anvil_designer import homeTemplate
 from anvil import *
+import anvil.tables as tables
+import anvil.tables.query as q
+from anvil.tables import app_tables
+import anvil.users
 from ..import navigation
 
 
@@ -30,7 +34,9 @@ class home(homeTemplate):
     navigation.go_scorecard()
     
 
-
+    def link_register_click(self, **event_args):
+    """This method is called when the link is clicked"""
+    pass
 
   def link_signin_click(self, **event_args):
     """This method is called when the link is clicked"""
@@ -49,6 +55,8 @@ class home(homeTemplate):
     self.link_vault.role = 'selected' if state == 'vault' else None
     self.link_datagen.role = 'selected' if state == 'datagen' else None
     self.link_scorecard.role = 'selected' if state == 'scorecard' else None
+
+
     
 
 

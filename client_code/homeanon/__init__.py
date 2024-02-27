@@ -1,5 +1,9 @@
 from ._anvil_designer import homeanonTemplate
 from anvil import *
+import anvil.tables as tables
+import anvil.tables.query as q
+from anvil.tables import app_tables
+import anvil.users
 
 class homeanon(homeanonTemplate):
   def __init__(self, **properties):
@@ -7,3 +11,6 @@ class homeanon(homeanonTemplate):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+
+  def primary_color_1_click(self, **event_args):
+    anvil.users.signup_with_form()
