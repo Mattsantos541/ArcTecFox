@@ -1,3 +1,8 @@
+dependencies:
+- dep_id: dep_w57c8ykzd8pzf3
+  version: {dev: false}
+  resolution_hints: {app_id: 26PJG2VBMUASC4AJ, name: Clone of Custom User Login/SignUP,
+    package_name: Custom_User_Login_SignUP}
 services:
 - source: /runtime/services/tables.yml
   client_config: {}
