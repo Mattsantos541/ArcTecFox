@@ -3,6 +3,9 @@ dependencies:
   version: {dev: false}
   resolution_hints: {app_id: 26PJG2VBMUASC4AJ, name: Clone of Custom User Login/SignUP,
     package_name: Custom_User_Login_SignUP}
+- dep_id: dep_vcf8xzuvo7askd
+  version: {dev: false}
+  resolution_hints: {app_id: EV2EC4ROKNTSDFAE, name: Rally App 1, package_name: Rally_App_1}
 services:
 - source: /runtime/services/tables.yml
   client_config: {}
