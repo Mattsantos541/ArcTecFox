@@ -8,6 +8,10 @@ from ..import navigation
 
 
 
+btn = Button(text="Click me!")
+xy_panel.add_component(btn, x=10, y=100)
+
+
 class home(homeTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
