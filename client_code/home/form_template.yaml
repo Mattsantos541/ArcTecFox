@@ -3,15 +3,6 @@ container:
   type: HtmlTemplate
   properties: {html: '@theme:standard-page.html', role: headline}
 components:
-- type: ColumnPanel
-  properties: {}
-  name: content_panel
-  layout_properties: {slot: default}
-  components:
-  - name: column_panel_content
-    properties: {}
-    type: ColumnPanel
-    layout_properties: {grid_position: 'MNYHRD,JZPBDY'}
 - type: FlowPanel
   properties: {}
   name: navbar_links
@@ -69,5 +60,9 @@ components:
     type: Link
     layout_properties: {grid_position: 'CXCWPO,AMQLXR'}
     event_bindings: {click: link_scorecard_click}
+- name: column_panel_2
+  properties: {}
+  type: ColumnPanel
+  layout_properties: {slot: default}
 custom_component: true
 custom_component_container: true

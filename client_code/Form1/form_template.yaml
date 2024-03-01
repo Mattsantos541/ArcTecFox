@@ -1,13 +1,28 @@
-is_package: true
-container:
-  type: HtmlTemplate
-  properties: {html: '@theme:standard-page.html'}
+container: {type: ColumnPanel}
 components:
-- type: ColumnPanel
-  properties: {}
-  name: content_panel
-  layout_properties: {slot: default}
-- type: FlowPanel
-  properties: {}
-  name: navbar_links
-  layout_properties: {slot: nav-right}
+- name: xy_panel_1
+  properties: {height: 196.73333740234375}
+  type: XYPanel
+  layout_properties: {grid_position: 'XPZQMS,ORULVC'}
+  components:
+  - name: spacer_1
+    properties: {height: 196.0433349609375}
+    type: Spacer
+    layout_properties: {x: 351.765625, y: 1.34375, width: 138.296875}
+  - name: label_2
+    properties: {visible: true, text: Password}
+    type: Label
+    layout_properties: {x: 496.265625, y: 46.109375, width: 200}
+  - name: label_1
+    properties: {text: Email}
+    type: Label
+    layout_properties: {x: 495.109375, y: 3.28125, width: 200}
+  - name: label_3
+    properties: {visible: true, text: Confirm Password}
+    type: Label
+    layout_properties: {x: 494.546875, y: 86.1875, width: 200}
+  - name: label_4
+    properties: {text: Business (optional)}
+    type: Label
+    layout_properties: {x: 493.859375, y: 131.265625, width: 200}
+is_package: true
