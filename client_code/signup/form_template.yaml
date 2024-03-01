@@ -18,8 +18,8 @@ components:
     properties: {height: 43.29595947265625}
     type: Spacer
     layout_properties: {grid_position: 'DQCJGZ,QTJVBD'}
-  - name: label_1
-    properties: {align: right}
+  - name: label_email
+    properties: {align: right, text: 'Email:'}
     type: Label
     layout_properties: {grid_position: 'HJEPSN,QFTEDV'}
   - name: text_box_1
