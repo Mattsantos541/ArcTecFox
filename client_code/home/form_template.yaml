@@ -46,12 +46,6 @@ components:
   type: ColumnPanel
   layout_properties: {slot: left-nav}
   components:
-  - name: xy_panel_1
-    properties: {height: 118.706787109375, width: null, align: right}
-    type: XYPanel
-    layout_properties: {grid_position: 'LSSDTD,GJPLAU'}
-    data_bindings:
-    - {property: width, code: '', writeback: false}
   - name: link_home
     properties: {text: Home, foreground: 'theme:White'}
     type: Link
