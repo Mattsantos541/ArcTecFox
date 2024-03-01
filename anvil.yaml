@@ -57,4 +57,7 @@ db_schema:
     - name: business_name
       admin_ui: {width: 200, order: 9}
       type: string
+    - name: date_registerd
+      admin_ui: {width: 200, order: 10}
+      type: datetime
     title: Users

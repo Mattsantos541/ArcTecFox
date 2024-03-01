@@ -1,15 +1,12 @@
 from ._anvil_designer import homeTemplate
 from anvil import *
+import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.users
 from ..import navigation
 
-
-
-btn = Button(text="Click me!")
-xy_panel.add_component(btn, x=10, y=100)
 
 
 class home(homeTemplate):

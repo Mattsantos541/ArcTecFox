@@ -1,12 +1,12 @@
-from ._anvil_designer import supportTemplate
+from ._anvil_designer import ItemTemplate2Template
 from anvil import *
 import anvil.server
+import anvil.users
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
-import anvil.users
 
-class support(supportTemplate):
+class ItemTemplate2(ItemTemplate2Template):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
