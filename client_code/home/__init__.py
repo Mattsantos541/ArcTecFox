@@ -39,8 +39,7 @@ class home(homeTemplate):
     anvil.users.signup_with_form(allow_cancel=True)  
 
   def link_signin_click(self, **event_args):
-    """This method is called when the link is clicked"""
-    pass
+    anvil.users.login_with_email(remember=False)
 
   def link_logout_click(self, **event_args):
     """This method is called when the link is clicked"""
