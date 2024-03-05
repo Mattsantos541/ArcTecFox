@@ -1,7 +1,16 @@
 container: {type: ColumnPanel}
 components:
-- name: label_1
-  properties: {text: 'homeanon- Register ', align: center}
+- name: headline_1
+  properties: {role: headline, align: center, text: Register}
   type: Label
-  layout_properties: {grid_position: 'DEEVKQ,BDRVTO'}
+  layout_properties: {grid_position: 'PMAEGR,QRGXWM'}
+- name: button_Register
+  properties: {text: Register, bold: true, background: 'theme:Secondary 500', role: primary-color}
+  type: Button
+  layout_properties: {grid_position: 'GFTVCA,VTQYFV'}
+  event_bindings: {click: button_Register_click}
+- name: link_signin
+  properties: {align: center, text: Sign In}
+  type: Link
+  layout_properties: {grid_position: 'RSSWHQ,FAEWSZ'}
 is_package: true

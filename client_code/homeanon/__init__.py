@@ -11,11 +11,9 @@ class homeanon(homeanonTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
+  def button_Register_click(self, **event_args):
+    
 
 
-  def register_click(self, **event_args):
-    anvil.users.signup_with_form(allow_cancel=True)
 
-  def text_box_1_pressed_enter(self, **event_args):
-    """This method is called when the user presses Enter in this text box"""
-    pass
+  
