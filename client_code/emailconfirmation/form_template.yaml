@@ -1,0 +1,11 @@
+container: {type: ColumnPanel}
+components:
+- name: headline_1
+  properties: {role: headline, align: center, text: Sign Up Successful}
+  type: Label
+  layout_properties: {grid_position: 'DFTTVT,SDESXB'}
+- name: link_
+  properties: {align: center, text: 'Go to Sign In '}
+  type: Link
+  layout_properties: {grid_position: 'NKZJUO,IXCJRX'}
+is_package: true
