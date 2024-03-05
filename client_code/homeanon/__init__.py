@@ -12,8 +12,6 @@ class homeanon(homeanonTemplate):
     self.init_components(**properties)
 
   def button_Register_click(self, **event_args):
-    
+    anvil.users.signup_with_form(allow_cancel=True)  
 
 
-
-  
