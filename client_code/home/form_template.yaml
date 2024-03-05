@@ -22,11 +22,11 @@ components:
     type: Link
     layout_properties: {}
     event_bindings: {click: link_account_click}
-  - name: link_register
-    properties: {text: Register}
+  - name: link_signup
+    properties: {text: Sign Up}
     type: Link
     layout_properties: {}
-    event_bindings: {click: link_register_click}
+    event_bindings: {click: link_signup_click}
   - name: link_signin
     properties: {text: Sign In}
     type: Link

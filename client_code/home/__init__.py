@@ -35,8 +35,8 @@ class home(homeTemplate):
     navigation.go_scorecard()
     
 
-  def link_register_click(self, **event_args):
-    anvil.users.signup_with_form(allow_cancel=True)  
+  def link_signup_click(self, **event_args):
+    navigation.go_signup()
 
   def link_signin_click(self, **event_args):
     """This method is called when the link is clicked"""

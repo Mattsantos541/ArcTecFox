@@ -10,6 +10,7 @@ from account import account
 from datagen import datagen
 from scorecard import scorecard
 from homedetails import homedetails
+from .signup import signup
 
 home = None
 def get_form():
@@ -47,6 +48,12 @@ def go_account():
   set_title('Account')
   form = get_form()
   form.load_component(account())
+
+def go_signup():
+  set_active_nav('signup')
+  set_title("signup")
+  form = get_form()
+  form.load_component(signup())
 
 def set_title(text):
   form = get_form()
