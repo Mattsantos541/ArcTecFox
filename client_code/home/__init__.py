@@ -36,11 +36,14 @@ class home(homeTemplate):
     
 
   def link_register_click(self, **event_args):
-    anvil.users.signup_with_form(allow_cancel=True)
-    navigation.go_home()
+    user = anvil.users.signup_with_form(allow_cancel=True)
+    set_account_state(user) 
+    navigation.go_vault()
 
   def link_signin_click(self, **event_args):
-    anvil.users.login_with_email(remember=False)
+    user = anvil.users.login_with_form(allow_cancel=True)
+    set_account_state(user)
+    navigation.go_vault()
 
   def link_logout_click(self, **event_args):
     """This method is called when the link is clicked"""
@@ -55,6 +58,13 @@ class home(homeTemplate):
     self.link_vault.role = 'selected' if state == 'vault' else None
     self.link_datagen.role = 'selected' if state == 'datagen' else None
     self.link_scorecard.role = 'selected' if state == 'scorecard' else None
+
+
+  def set_account_state(self, user):
+    self.link_account.visible = user is not None
+    self.link_logout.visible = user is not None
+    self.link_login.visible = user is None
+    self.link_register.visible = user is None
 
 
     

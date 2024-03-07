@@ -13,4 +13,5 @@ components:
   properties: {align: center, text: Sign In}
   type: Link
   layout_properties: {grid_position: 'RSSWHQ,FAEWSZ'}
+  event_bindings: {click: link_signin_click}
 is_package: true
