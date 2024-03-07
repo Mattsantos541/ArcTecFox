@@ -5,6 +5,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.users
+from ..import navigation
 
 
 class homeanon(homeanonTemplate):
@@ -17,9 +18,8 @@ class homeanon(homeanonTemplate):
     set_account_state(user) 
     navigation.go_vault() 
 
-  def link_signin_click(self, **event_args):
-    user = anvil.users.login_with_form(allow_cancel=True)
-    set_account_state(user)
-    navigation.go_vault()
+
+
+
 
 

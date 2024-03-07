@@ -16,6 +16,8 @@ class home(homeTemplate):
 
     # Any code you write here will run before the form opens.
     self.base_title = self.headline_1.text
+    user = anvil.users.get_user()
+    self.set_account_state(user)
     navigation.home = self
     navigation.go_home()
 
@@ -37,17 +39,18 @@ class home(homeTemplate):
 
   def link_register_click(self, **event_args):
     user = anvil.users.signup_with_form(allow_cancel=True)
-    set_account_state(user) 
+    self.set_account_state(user) 
     navigation.go_vault()
 
-  def link_signin_click(self, **event_args):
+  def link_login_click(self, **event_args):
     user = anvil.users.login_with_form(allow_cancel=True)
-    set_account_state(user)
+    self.set_account_state(user)
     navigation.go_vault()
 
   def link_logout_click(self, **event_args):
-    """This method is called when the link is clicked"""
-    pass
+    user = anvil.users.logout()
+    self.set_account_state(None)
+    navigation.go_home()
 
   def load_component(self, cmpt):
     self.column_panel_content.clear()

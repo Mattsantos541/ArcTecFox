@@ -20,6 +20,12 @@ def get_form():
 def go_vault():
   set_active_nav('vault')
   set_title("Vault")
+
+  user = require_account()
+  if not user:
+    go_home()
+    return
+  
   form = get_form()
   form.load_component(vault())
 
@@ -28,17 +34,33 @@ def go_home():
   set_active_nav('home')
   set_title('')
   form = get_form()
-  form.load_component(homeanon())
+  user = anvil.users.get_user()
+  if user:
+    form.load_component(vault())
+  else:
+    form.load_component(homeanon())
 
 def go_datagen():
   set_active_nav('datagen')
   set_title('DataGen')
+  user = require_account()
+  if not user:
+    go_home()
+    return
+
+  
   form = get_form()
   form.load_component(datagen())
 
 def go_scorecard():
   set_active_nav('scorecard')
   set_title("Scorecard")
+  user = require_account()
+  if not user:
+    go_home()
+    return
+
+  
   form = get_form()
   form.load_component(scorecard())
 
@@ -58,4 +80,20 @@ def set_title(text):
 def set_active_nav(state):
   form = get_form()
   form.set_active_nav(state)
-  
+
+def set_account_state(self, user):
+    self.link_account.visible = user is not None
+    self.link_logout.visible = user is not None
+    self.link_login.visible = user is None
+    self.link_register.visible = user is None
+
+def require_account():
+    user = anvil.users.get_user()
+    if user:
+      return user
+    
+    user = anvil.users.login_with_form(allow_cancel=True)
+    form = get_form()
+    form.set_account_state(user)
+    return user
+    

@@ -9,9 +9,4 @@ components:
   type: Button
   layout_properties: {grid_position: 'GFTVCA,VTQYFV'}
   event_bindings: {click: button_Register_click}
-- name: link_signin
-  properties: {align: center, text: Sign In}
-  type: Link
-  layout_properties: {grid_position: 'RSSWHQ,FAEWSZ'}
-  event_bindings: {click: link_signin_click}
 is_package: true
