@@ -1,0 +1,7 @@
+container: {type: ColumnPanel}
+components:
+- name: headline_1
+  properties: {role: headline, text: HomeDetails}
+  type: Label
+  layout_properties: {grid_position: 'RDYCGD,DPHFXR'}
+is_package: true

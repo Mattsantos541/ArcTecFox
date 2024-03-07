@@ -36,7 +36,8 @@ class home(homeTemplate):
     
 
   def link_register_click(self, **event_args):
-    anvil.users.signup_with_form(allow_cancel=True)  
+    anvil.users.signup_with_form(allow_cancel=True)
+    navigation.go_home()
 
   def link_signin_click(self, **event_args):
     anvil.users.login_with_email(remember=False)

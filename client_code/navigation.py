@@ -9,7 +9,7 @@ from homeanon import homeanon
 from account import account
 from datagen import datagen
 from scorecard import scorecard
-from homedetails import homedetails
+
 
 home = None
 def get_form():
