@@ -1,7 +1,20 @@
 container: {type: ColumnPanel}
 components:
 - name: label_1
-  properties: {text: vault}
+  properties: {text: Vault, align: center, font_size: 28, bold: true}
   type: Label
   layout_properties: {grid_position: 'OHLUMN,PDCQFC'}
+- name: data_grid_1
+  properties:
+    columns:
+    - {id: JKSDUP, title: Column 1, data_key: column_1}
+    - {id: VJQQOR, title: Column 2, data_key: column_2}
+    - {id: OJLQEN, title: Column 3, data_key: column_3}
+    - {id: QRLUDC, data_key: column_4, title: Column 4}
+  type: DataGrid
+  components:
+  - name: repeating_panel_1
+    properties: {item_template: vault.RowTemplate3}
+    type: RepeatingPanel
+  layout_properties: {grid_position: 'YDCIKP,LUBTOF'}
 is_package: true

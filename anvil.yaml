@@ -65,3 +65,24 @@ db_schema:
       admin_ui: {width: 200}
       type: string
     title: Users
+  datasets:
+    client: none
+    server: full
+    columns:
+    - name: user
+      admin_ui: {width: 200, order: 0}
+      type: link_single
+      target: users
+    - name: upload_date
+      admin_ui: {width: 200, order: 2}
+      type: date
+    - name: dataset_name
+      admin_ui: {width: 200, order: 3}
+      type: string
+    - name: size
+      admin_ui: {width: 200, order: 4}
+      type: number
+    - name: desc
+      admin_ui: {width: 200, order: 5}
+      type: string
+    title: Datasets
