@@ -5,71 +5,75 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.users
-from ..import navigation
-
+from .. import navigation  # Ensure this import statement is correct
 
 
 class home(homeTemplate):
-  def __init__(self, **properties):
-    # Set Form properties and Data Bindings.
-    self.init_components(**properties)
+    def __init__(self, **properties):
+        # Set Form properties and Data Bindings.
+        self.init_components(**properties)
 
-    # Any code you write here will run before the form opens.
-    self.base_title = self.headline_1.text
-    user = anvil.users.get_user()
-    self.set_account_state(user)
-    navigation.home = self
-    navigation.go_home()
+        # Any code you write here will run before the form opens.
+        self.base_title = self.headline_1.text
 
-  def link_account_click(self, **event_args):
-    navigation.go_account()
+        user = anvil.users.get_user()
+        print("Current user:", user)
+        self.set_account_state(user)
 
-  def link_home_click(self, **event_args):
-    navigation.go_home()
+        navigation.home = self
+        navigation.go_home()
 
-  def link_vault_click(self, **event_args):
-    navigation.go_vault()
+        # Moved the user welcome message logic inside a method to ensure it's called correctly
+        self.update_welcome_message(user)
 
-  def link_datagen_click(self, **event_args):
-    navigation.go_datagen()
+    def update_welcome_message(self, user):
+      if user:
+        self.link_account.text = f"Welcome {user['email']}"
+      else:
+        self.link_account.text = "Welcome Guest"
 
-  def link_scorecard_click(self, **event_args):
-    navigation.go_scorecard()
-    
+    def link_account_click(self, **event_args):
+        navigation.go_account()
 
-  def link_register_click(self, **event_args):
-    user = anvil.users.signup_with_form(allow_cancel=True)
-    self.set_account_state(user) 
-    navigation.go_vault()
+    def link_home_click(self, **event_args):
+        navigation.go_home()
 
-  def link_login_click(self, **event_args):
-    user = anvil.users.login_with_form(allow_cancel=True)
-    self.set_account_state(user)
-    navigation.go_vault()
+    def link_vault_click(self, **event_args):
+        navigation.go_vault()
 
-  def link_logout_click(self, **event_args):
-    user = anvil.users.logout()
-    self.set_account_state(None)
-    navigation.go_home()
+    def link_datagen_click(self, **event_args):
+        navigation.go_datagen()
 
-  def load_component(self, cmpt):
-    self.column_panel_content.clear()
-    self.column_panel_content.add_component(cmpt)
+    def link_scorecard_click(self, **event_args):
+        navigation.go_scorecard()
 
-  def set_active_nav(self, state):
-    self.link_home.role = 'selected' if state == 'home' else None
-    self.link_vault.role = 'selected' if state == 'vault' else None
-    self.link_datagen.role = 'selected' if state == 'datagen' else None
-    self.link_scorecard.role = 'selected' if state == 'scorecard' else None
+    def link_register_click(self, **event_args):
+        user = anvil.users.signup_with_form(allow_cancel=True)
+        self.set_account_state(user)
+        navigation.go_vault()
 
+    def link_login_click(self, **event_args):
+        user = anvil.users.login_with_form(allow_cancel=True)
+        self.set_account_state(user)
+        navigation.go_vault()
 
-  def set_account_state(self, user):
-    self.link_account.visible = user is not None
-    self.link_logout.visible = user is not None
-    self.link_login.visible = user is None
-    self.link_register.visible = user is None
+    def link_logout_click(self, **event_args):
+        anvil.users.logout()
+        self.set_account_state(None)
+        navigation.go_home()
 
+    def load_component(self, cmpt):
+        self.column_panel_content.clear()
+        self.column_panel_content.add_component(cmpt)
 
-    
+    def set_active_nav(self, state):
+        self.link_home.role = 'selected' if state == 'home' else None
+        self.link_vault.role = 'selected' if state == 'vault' else None
+        self.link_datagen.role = 'selected' if state == 'datagen' else None
+        self.link_scorecard.role = 'selected' if state == 'scorecard' else None
 
-
+    def set_account_state(self, user):
+        self.link_account.visible = user is not None
+        self.link_logout.visible = user is not None
+        self.link_login.visible = user is None
+        self.link_register.visible = user is None
