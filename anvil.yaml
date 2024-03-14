@@ -11,9 +11,9 @@ services:
   client_config: {}
   server_config: {}
 - source: /runtime/services/anvil/users.yml
-  client_config: {allow_signup: true, enable_automatically: true, use_email: true,
-    confirm_email: true, require_mfa: true, mfa_timeout_days: 0, allow_mfa_email_reset: true,
-    require_secure_passwords: true}
+  client_config: {mfa_timeout_days: 0, require_secure_passwords: true, allow_mfa_email_reset: true,
+    use_email: true, allow_remember_me: true, allow_signup: true, enable_automatically: true,
+    confirm_email: true, require_mfa: false, remember_me_days: 1}
   server_config: {user_table: users}
 startup: {type: form, module: home}
 package_name: ArcTecFox
@@ -64,6 +64,9 @@ db_schema:
     - name: email_confirmation_key
       admin_ui: {width: 200}
       type: string
+    - name: remembered_logins
+      admin_ui: {order: 12, width: 200}
+      type: simpleObject
     title: Users
   datasets:
     client: none
@@ -77,7 +80,7 @@ db_schema:
       admin_ui: {width: 200, order: 2}
       type: date
     - name: dataset_name
-      admin_ui: {width: 200, order: 3}
+      admin_ui: {order: 1, width: 200}
       type: string
     - name: size
       admin_ui: {width: 200, order: 4}
@@ -85,4 +88,7 @@ db_schema:
     - name: desc
       admin_ui: {width: 200, order: 5}
       type: string
+    - name: fulldataset
+      admin_ui: {width: 200, order: 6}
+      type: media
     title: Datasets

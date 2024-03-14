@@ -27,6 +27,7 @@ class home(homeTemplate):
         self.update_welcome_message(user)
 
     def update_welcome_message(self, user):
+      print("Updating welcome message for user:", user)
       if user:
         self.link_account.text = f"Welcome {user['email']}"
       else:
