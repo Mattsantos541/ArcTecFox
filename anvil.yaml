@@ -69,7 +69,7 @@ db_schema:
       type: simpleObject
     title: Users
   datasets:
-    client: none
+    client: search
     server: full
     columns:
     - name: user
