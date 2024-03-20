@@ -18,10 +18,11 @@ components:
 - name: data_grid_1
   properties:
     columns:
-    - {id: JKSDUP, title: Column 1, data_key: '', expand: false}
-    - {id: VJQQOR, title: Column 2, data_key: column_2}
-    - {id: OJLQEN, title: Column 3, data_key: column_3}
-    - {id: QRLUDC, data_key: column_4, title: Column 4}
+    - {id: JKSDUP, title: Dataset Name, data_key: '', expand: false}
+    - {id: VJQQOR, title: Date Uploaded, data_key: column_2}
+    - {id: OJLQEN, title: Size (rows count), data_key: column_3}
+    - {id: QRLUDC, data_key: column_4, title: Description}
+    - {id: FNEQJO, data_key: column_1, title: Dataset Blob}
   type: DataGrid
   components:
   - name: repeating_panel_1
