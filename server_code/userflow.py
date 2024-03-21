@@ -30,8 +30,11 @@ def register_user(email, password, confirm_password, business_name=None):
     )
     
     return "User registered successfully."
-
-# This is a server module. It runs on the Anvil server,
+@anvil.server.callable
+def check_user_status():
+  #User is registered
+  #fetch currently logged in User
+  # This is a server module. It runs on the Anvil server,
 # rather than in the user's browser.
 #
 # To allow anvil.server.call() to call functions here, we mark

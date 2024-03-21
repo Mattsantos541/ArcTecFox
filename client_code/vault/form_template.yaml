@@ -18,17 +18,15 @@ components:
 - name: data_grid_1
   properties:
     columns:
-    - {id: JKSDUP, title: Dataset Name, data_key: '', expand: false}
-    - {id: VJQQOR, title: Date Uploaded, data_key: users, expand: false}
-    - {id: OJLQEN, title: Size (rows count), data_key: column_3}
-    - {id: QRLUDC, data_key: column_4, title: Description}
-    - {id: FNEQJO, data_key: column_1, title: Dataset Blob}
+    - {id: TRDMTW, data_key: dataset_name, title: dataset_name}
+    - {id: DUMRPN, data_key: upload_date, title: upload_date}
+    - {id: VTLEVX, data_key: size, title: size}
+    - {id: WVPJJJ, data_key: desc, title: desc}
+    - {id: MRZJZL, data_key: fulldataset, title: fulldataset}
   type: DataGrid
   components:
   - name: repeating_panel_1
-    properties: {item_template: vault.RowTemplate3}
+    properties: {item_template: vault.RowTemplate4}
     type: RepeatingPanel
-    data_bindings:
-    - {property: item_template, code: 'self.item[''dataset_name'']', writeback: false}
-  layout_properties: {grid_position: 'YDCIKP,LUBTOF'}
+  layout_properties: {grid_position: 'VLJQDT,EBUIHM'}
 is_package: true
