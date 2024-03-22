@@ -12,14 +12,15 @@ class vault(vaultTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
 
-    # Fetch the currently logged-in user
-    user = anvil.users.get_user()
-
-    # Any code you write here will run before the form opens.
-
-    datasets = app_tables.datasets.search(user=user)
-    # Prepare the data for the Repeating Panel
-    prepared_data = [{'dataset_name': row['dataset_name'],
-                      # Add any other fields you want to display
-                     } for row in datasets]
-    self.repeating_panel_1.items = prepared_data
+  # Check if a user is logged in
+    if anvil.server.call('check_user'):
+    # If the user is logged in, proceed to fetch and display datasets
+      user_datasets = anvil.server.call('get_user_datasets')
+      self.repeating_panel_1.items = user_datasets
+    else:
+        # Handle the scenario where no user is logged in
+      print("No user is logged in.")
+        # Here you could display a notification or redirect to a login form
+        # For example, using Notification:
+      from anvil import Notification
+      Notification("Please log in to view datasets.", timeout=3).show()

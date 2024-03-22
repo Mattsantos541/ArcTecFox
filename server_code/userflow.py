@@ -30,12 +30,13 @@ def register_user(email, password, confirm_password, business_name=None):
     )
     
     return "User registered successfully."
-
+@anvil.server.callable
 def check_user():
   if anvil.users.get_user() is None:
-    raise anvil.server.NoUserError("No user is logged in.")
+    return False
+  return True
 
-
+@anvil.server.callable
 def get_user_datasets():
   #Retrieves datasets for the currently logged in user, returns list of datasets
   #first check if the user is logged in
