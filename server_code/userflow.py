@@ -30,19 +30,16 @@ def register_user(email, password, confirm_password, business_name=None):
     )
     
     return "User registered successfully."
-@anvil.server.callable
-def check_user_status():
-  #User is registered
-  #fetch currently logged in User
-  # This is a server module. It runs on the Anvil server,
-# rather than in the user's browser.
-#
-# To allow anvil.server.call() to call functions here, we mark
-# them with @anvil.server.callable.
-# Here is an example - you can replace it with your own:
-#
-# @anvil.server.callable
-# def say_hello(name):
-#   print("Hello, " + name + "!")
-#   return 42
-#
+
+def check_user():
+  if anvil.users.get_user() is None:
+    raise anvil.server.NoUserError("No user is logged in.")
+
+
+def get_user_datasets():
+  #Retrieves datasets for the currently logged in user, returns list of datasets
+  #first check if the user is logged in
+  check_user()
+  #fetch the datasets for the logged in user 
+  user = anvil.users.get_user()
+  return app_tables.datasets.search(user=user)
