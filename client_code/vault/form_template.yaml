@@ -29,4 +29,6 @@ components:
     properties: {item_template: vault.RowTemplate4}
     type: RepeatingPanel
   layout_properties: {grid_position: 'VLJQDT,EBUIHM'}
+  data_bindings:
+  - {property: tag, code: 'self.item['''']', writeback: false}
 is_package: true

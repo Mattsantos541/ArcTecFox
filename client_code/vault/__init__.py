@@ -14,12 +14,17 @@ class vault(vaultTemplate):
 
     # Fetch the currently logged-in user
     user = anvil.users.get_user()
+    print("Debug - Logged in user:", user['email'] if user else "No user logged in")
 
     # Any code you write here will run before the form opens.
 
     datasets = app_tables.datasets.search(user=user)
+    print(f"Debug - Number of datasets found: {len(datasets)}")
+
     # Prepare the data for the Repeating Panel
     prepared_data = [{'dataset_name': row['dataset_name'],
+                      'upload_date': row['upload_date']
                       # Add any other fields you want to display
                      } for row in datasets]
+    print("Debug - Prepared data:", prepared_data)
     self.repeating_panel_1.items = prepared_data
