@@ -44,3 +44,10 @@ def get_user_datasets():
   #fetch the datasets for the logged in user 
   user = anvil.users.get_user()
   return app_tables.datasets.search(user=user)
+
+# On the server side
+@anvil.server.callable
+def some_server_side_action():
+    user = anvil.users.get_user()
+    print("Server-side action requested by:", user['email'] if user else "No user")
+    # Perform action

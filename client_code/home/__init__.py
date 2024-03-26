@@ -9,29 +9,40 @@ from .. import navigation  # Ensure this import statement is correct
 
 
 class home(homeTemplate):
-    def __init__(self, **properties):
-        # Set Form properties and Data Bindings.
-        self.init_components(**properties)
+  def __init__(self, **properties):
+    self.init_components(**properties)
+    user = anvil.users.get_user()
+    print("[__init__] Current user:", user)
+    self.update_welcome_message(user)
 
-        # Any code you write here will run before the form opens.
-        self.base_title = self.headline_1.text
 
-        user = anvil.users.get_user()
-        print("Current user:", user)
-        self.set_account_state(user)
+    navigation.home = self
+    navigation.go_home()
 
-        navigation.home = self
-        navigation.go_home()
 
-        # Moved the user welcome message logic inside a method to ensure it's called correctly
-        self.update_welcome_message(user)
 
     def update_welcome_message(self, user):
-      print("Updating welcome message for user:", user)
+      print("[update_welcome_message] User object:", user)
       if user:
-        self.link_account.text = f"Welcome {user['email']}"
+        email = user['email']
+        print("[update_welcome_message] Setting welcome message for:", email)
+        self.link_account.text = f"Welcome {email}"
       else:
+        print("[update_welcome_message] No user logged in, setting as guest.")
         self.link_account.text = "Welcome Guest"
+
+    print("Before email update, user:", anvil.users.get_user()['email'])
+    # Code to update user's email
+    print("After email update, user:", anvil.users.get_user()['email'])
+
+
+
+    def form_show(self, **event_args):
+      user = anvil.users.get_user()
+      print("[form_show] Showing form to user:", user)
+      self.update_welcome_message(user)
+
+
 
     def link_account_click(self, **event_args):
         navigation.go_account()

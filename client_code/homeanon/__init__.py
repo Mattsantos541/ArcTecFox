@@ -15,7 +15,7 @@ class homeanon(homeanonTemplate):
 
   def button_Register_click(self, **event_args):
     user = anvil.users.signup_with_form(allow_cancel=True)
-    set_account_state(user) 
+    self.set_account_state(user) 
     navigation.go_vault() 
 
 
