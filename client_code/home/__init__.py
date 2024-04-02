@@ -12,26 +12,38 @@ class home(homeTemplate):
     def __init__(self, **properties):
         # Set Form properties and Data Bindings.
         self.init_components(**properties)
-
+        # Set up initial UI state based on user status
+        self.update_ui_based_on_user()
         # Any code you write here will run before the form opens.
         self.base_title = self.headline_1.text
-
+        navigation.home = self
         user = anvil.users.get_user()
         print("Current user:", user)
         self.set_account_state(user)
 
-        navigation.home = self
+        
         navigation.go_home()
 
         # Moved the user welcome message logic inside a method to ensure it's called correctly
-        self.update_welcome_message(user)
+        #self.update_welcome_message(user)
+    def form_show(self, **event_args):
+        # Refresh UI state every time the form is shown
+        self.update_ui_based_on_user()
 
-    def update_welcome_message(self, user):
-      print("Updating welcome message for user:", user)
-      if user:
-        self.link_account.text = f"Welcome {user['email']}"
-      else:
-        self.link_account.text = "Welcome Guest"
+    def update_ui_based_on_user(self):
+        """Updates UI components based on the user's login state."""
+        user = anvil.users.get_user()
+        if user:
+            self.link_account.text = f"Welcome {user['email']}"
+            self.link_logout.visible = True
+            self.link_login.visible = False
+            self.link_register.visible = False
+        else:
+            self.link_account.text = "Welcome Guest"
+            self.link_logout.visible = False
+            self.link_login.visible = True
+            self.link_register.visible = True
+
 
     def link_account_click(self, **event_args):
         navigation.go_account()
@@ -78,3 +90,5 @@ class home(homeTemplate):
         self.link_logout.visible = user is not None
         self.link_login.visible = user is None
         self.link_register.visible = user is None
+        # update welcome message 
+        self.update_ui_based_on_user()
