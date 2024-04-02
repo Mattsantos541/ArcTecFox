@@ -18,10 +18,10 @@ components:
 - name: data_grid_1
   properties:
     columns:
-    - {id: TRDMTW, data_key: dataset_name, title: dataset_name}
-    - {id: DUMRPN, data_key: upload_date, title: upload_date}
-    - {id: VTLEVX, data_key: size, title: size}
-    - {id: WVPJJJ, data_key: desc, title: desc}
+    - {id: TRDMTW, data_key: dataset_name, title: Dataset Name}
+    - {id: DUMRPN, data_key: upload_date, title: Date Uploaded}
+    - {id: VTLEVX, data_key: Size, title: Size}
+    - {id: WVPJJJ, data_key: desc, title: Description}
     - {id: MRZJZL, data_key: fulldataset, title: fulldataset}
   type: DataGrid
   components:

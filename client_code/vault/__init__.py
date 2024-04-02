@@ -23,7 +23,10 @@ class vault(vaultTemplate):
 
     # Prepare the data for the Repeating Panel
     prepared_data = [{'dataset_name': row['dataset_name'],
-                      'upload_date': row['upload_date']
+                      'upload_date': row['upload_date'],
+                      'Size': row['size'],
+                      'desc': row['desc'],
+                      'fulldataset': row['fulldataset']
                       # Add any other fields you want to display
                      } for row in datasets]
     print("Debug - Prepared data:", prepared_data)
