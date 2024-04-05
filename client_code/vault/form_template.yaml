@@ -1,6 +1,6 @@
 container:
   type: ColumnPanel
-  properties: {col_widths: '{"MKSEBR":20,"ILBBSU":40}'}
+  properties: {col_widths: '{"MKSEBR":20,"ILBBSU":40,"CUFUGL":25,"PYHIEF":35}'}
 components:
 - name: label_1
   properties: {text: Vault, align: center, font_size: 28, bold: true}
@@ -18,25 +18,32 @@ components:
   type: Spacer
   layout_properties: {grid_position: 'DBQEFS,ADWFBB'}
 - name: file_loader_1
-  properties: {text: Select File, icon: 'fa:upload', align: center, role: secondary-color}
+  properties: {text: Select File, icon: 'fa:upload', align: right, role: secondary-color,
+    font_size: 14, spacing_above: medium}
   type: FileLoader
-  layout_properties: {grid_position: 'EHKTXP,CUFUGL'}
+  layout_properties: {grid_position: 'EHKTXP,CUFUGL', full_width_row: true}
   event_bindings: {change: file_loader_1_change}
 - name: button_upload
-  properties: {text: Upload Dataset, role: primary-color}
+  properties: {text: Upload Dataset, role: primary-color, align: left, font: '', font_size: 14,
+    spacing_above: medium}
   type: Button
-  layout_properties: {grid_position: 'EHKTXP,PYHIEF'}
+  layout_properties: {grid_position: 'EHKTXP,PYHIEF', full_width_row: true}
   event_bindings: {click: button_upload_click}
+- name: spacer_3
+  properties: {height: 39}
+  type: Spacer
+  layout_properties: {grid_position: 'WXENEK,JMBSVR'}
 - name: label_2
   properties: {text: 'Dataset Description:', bold: true, align: center, border: 2px solid black}
   type: Label
   layout_properties: {grid_position: 'XJSGTK,MKSEBR'}
 - name: text_box_datasetdesc
-  properties: {placeholder: 'Ex: seasonal Temperatures, team sales stats', border: 2px solid black}
+  properties: {placeholder: 'Ex: seasonal Temperatures, team sales stats', border: '',
+    align: center}
   type: TextBox
-  layout_properties: {grid_position: 'XJSGTK,ILBBSU'}
+  layout_properties: {grid_position: 'XJSGTK,ILBBSU', full_width_row: true}
 - name: spacer_1
-  properties: {height: 32}
+  properties: {height: 80}
   type: Spacer
   layout_properties: {grid_position: 'JEEYNC,SIKWKS'}
 - name: data_grid_1
