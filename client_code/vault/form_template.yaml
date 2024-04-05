@@ -1,16 +1,40 @@
-container: {type: ColumnPanel}
+container:
+  type: ColumnPanel
+  properties: {col_widths: '{"MKSEBR":20,"ILBBSU":40}'}
 components:
 - name: label_1
   properties: {text: Vault, align: center, font_size: 28, bold: true}
   type: Label
   layout_properties: {grid_position: 'OHLUMN,PDCQFC'}
 - name: text_area_1
-  properties: {text: 'Welcome to the Vault! Upload, view, and manage your datasets
-      all in one place.', placeholder: '', align: center, border: none, foreground: roboto}
+  properties: {text: 'Welcome to your  Vault. This is where you can upload, view,
+      and manage your datasets.', placeholder: '', align: center, border: none, foreground: roboto}
   type: TextArea
   layout_properties: {grid_position: 'VIQWFO,GFAUZZ'}
   data_bindings:
   - {property: tag, code: 'self.item[''email'']', writeback: false}
+- name: spacer_2
+  properties: {height: 32}
+  type: Spacer
+  layout_properties: {grid_position: 'DBQEFS,ADWFBB'}
+- name: file_loader_1
+  properties: {text: Select File, icon: 'fa:upload', align: center, role: secondary-color}
+  type: FileLoader
+  layout_properties: {grid_position: 'EHKTXP,CUFUGL'}
+  event_bindings: {change: file_loader_1_change}
+- name: button_upload
+  properties: {text: Upload Dataset, role: primary-color}
+  type: Button
+  layout_properties: {grid_position: 'EHKTXP,PYHIEF'}
+  event_bindings: {click: button_upload_click}
+- name: label_2
+  properties: {text: 'Dataset Description:', bold: true, align: center, border: 2px solid black}
+  type: Label
+  layout_properties: {grid_position: 'XJSGTK,MKSEBR'}
+- name: text_box_datasetdesc
+  properties: {placeholder: 'Ex: seasonal Temperatures, team sales stats', border: 2px solid black}
+  type: TextBox
+  layout_properties: {grid_position: 'XJSGTK,ILBBSU'}
 - name: spacer_1
   properties: {height: 32}
   type: Spacer

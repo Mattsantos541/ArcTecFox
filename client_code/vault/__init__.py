@@ -31,3 +31,20 @@ class vault(vaultTemplate):
                      } for row in datasets]
     print("Debug - Prepared data:", prepared_data)
     self.repeating_panel_1.items = prepared_data
+
+    
+
+  def button_upload_click(self, **event_args):
+    """This method is called when a new file is loaded into this FileLoader"""
+    if self.file_loader_1.file and self.text_box_datasetdesc.text:
+      # Call server function to upload and process dataset
+      result = anvil.server.call('upload_dataset',
+                                self.file_loader_1.file,
+                                self.text_box_datasetdesc.text)
+      if result == "success":
+        Notification("Dataset uploaded successfully.", timeout=3).show()
+        # Optionally, refresh the datsets list or take other actions
+      else:
+        Notification("Failed to upload dataset.", timeout=3).show()
+    else:
+      Notification("Please select a file and enter a file description", timeout=3).show()
