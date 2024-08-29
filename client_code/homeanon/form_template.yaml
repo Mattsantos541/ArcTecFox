@@ -1,12 +1,12 @@
-container: {type: ColumnPanel}
 components:
-- name: headline_1
-  properties: {role: headline, align: center, text: Register}
+- layout_properties: {grid_position: 'PMAEGR,QRGXWM'}
+  name: headline_1
+  properties: {align: center, role: headline, text: Register}
   type: Label
-  layout_properties: {grid_position: 'PMAEGR,QRGXWM'}
-- name: button_Register
-  properties: {text: Register, bold: true, background: 'theme:Secondary 500', role: primary-color}
-  type: Button
+- event_bindings: {click: button_Register_click}
   layout_properties: {grid_position: 'GFTVCA,VTQYFV'}
-  event_bindings: {click: button_Register_click}
+  name: button_Register
+  properties: {background: 'theme:Secondary 500', bold: true, role: primary-color, text: Register}
+  type: Button
+container: {type: ColumnPanel}
 is_package: true
