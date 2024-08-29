@@ -1,7 +1,7 @@
-container: {type: ColumnPanel}
 components:
-- name: label_1
+- layout_properties: {grid_position: 'QZYBLJ,VEFLYR'}
+  name: label_1
   properties: {text: scorecard}
   type: Label
-  layout_properties: {grid_position: 'QZYBLJ,VEFLYR'}
+container: {type: ColumnPanel}
 is_package: true

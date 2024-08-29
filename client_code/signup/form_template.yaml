@@ -1,52 +1,51 @@
-is_package: true
-container:
-  type: HtmlTemplate
-  properties: {html: ''}
 components:
-- type: ColumnPanel
-  properties: {}
-  name: content_panel
-  layout_properties: {slot: default}
-  components:
-  - name: headline_1
-    properties: {role: headline, align: center, text: Sign Up, font: orbitron, font_size: 32,
-      bold: false}
-    type: Label
+- components:
+  - data_bindings: []
     layout_properties: {grid_position: 'KAFCUW,WQGHFD'}
-    data_bindings: []
-  - name: spacer_1
+    name: headline_1
+    properties: {align: center, bold: false, font: orbitron, font_size: 32, role: headline, text: Sign Up}
+    type: Label
+  - layout_properties: {grid_position: 'DQCJGZ,QTJVBD'}
+    name: spacer_1
     properties: {height: 43.29595947265625}
     type: Spacer
-    layout_properties: {grid_position: 'DQCJGZ,QTJVBD'}
-  - name: label_email
+  - layout_properties: {grid_position: 'HJEPSN,QFTEDV'}
+    name: label_email
     properties: {align: right, text: 'Email:'}
     type: Label
-    layout_properties: {grid_position: 'HJEPSN,QFTEDV'}
-  - name: text_box_1
+  - layout_properties: {grid_position: 'HJEPSN,SCFMGR'}
+    name: text_box_1
     properties: {}
     type: TextBox
-    layout_properties: {grid_position: 'HJEPSN,SCFMGR'}
-  - name: label_2
+  - layout_properties: {grid_position: 'KECCEL,YUUQKB'}
+    name: label_2
     properties: {align: right}
     type: Label
-    layout_properties: {grid_position: 'KECCEL,YUUQKB'}
-  - name: text_box_2
+  - layout_properties: {grid_position: 'KECCEL,SALPPJ'}
+    name: text_box_2
     properties: {}
     type: TextBox
-    layout_properties: {grid_position: 'KECCEL,SALPPJ'}
-  - name: label_3
+  - layout_properties: {grid_position: 'SOIQVJ,DORTYS'}
+    name: label_3
     properties: {align: right}
     type: Label
-    layout_properties: {grid_position: 'SOIQVJ,DORTYS'}
-  - name: text_box_3
+  - layout_properties: {grid_position: 'SOIQVJ,OTWBAI'}
+    name: text_box_3
     properties: {}
     type: TextBox
-    layout_properties: {grid_position: 'SOIQVJ,OTWBAI'}
-  - name: label_4
+  - layout_properties: {grid_position: 'SZLQWS,RRLDGJ'}
+    name: label_4
     properties: {align: right}
     type: Label
-    layout_properties: {grid_position: 'SZLQWS,RRLDGJ'}
-  - name: text_box_4
+  - layout_properties: {grid_position: 'SZLQWS,ACCJIO'}
+    name: text_box_4
     properties: {}
     type: TextBox
-    layout_properties: {grid_position: 'SZLQWS,ACCJIO'}
+  layout_properties: {slot: default}
+  name: content_panel
+  properties: {}
+  type: ColumnPanel
+container:
+  properties: {html: ''}
+  type: HtmlTemplate
+is_package: true

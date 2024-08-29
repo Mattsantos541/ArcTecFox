@@ -1,7 +1,7 @@
-container: {type: ColumnPanel}
 components:
-- name: label_1
+- layout_properties: {grid_position: 'TFMACY,PPMMJE'}
+  name: label_1
   properties: {text: support}
   type: Label
-  layout_properties: {grid_position: 'TFMACY,PPMMJE'}
+container: {type: ColumnPanel}
 is_package: true

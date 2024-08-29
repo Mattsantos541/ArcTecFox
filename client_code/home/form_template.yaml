@@ -1,73 +1,73 @@
-is_package: true
-container:
-  type: HtmlTemplate
-  properties: {html: '@theme:standard-page.html', role: headline}
 components:
-- type: ColumnPanel
-  properties: {}
-  name: content_panel
-  layout_properties: {slot: default}
-  components:
-  - name: column_panel_content
+- components:
+  - layout_properties: {grid_position: 'MNYHRD,JZPBDY'}
+    name: column_panel_content
     properties: {}
     type: ColumnPanel
-    layout_properties: {grid_position: 'MNYHRD,JZPBDY'}
-- type: FlowPanel
+  layout_properties: {slot: default}
+  name: content_panel
   properties: {}
-  name: navbar_links
-  layout_properties: {slot: nav-right}
-  components:
-  - name: link_account
+  type: ColumnPanel
+- components:
+  - event_bindings: {click: link_account_click}
+    layout_properties: {}
+    name: link_account
     properties: {text: Account}
     type: Link
+  - event_bindings: {click: link_register_click}
     layout_properties: {}
-    event_bindings: {click: link_account_click}
-  - name: link_register
+    name: link_register
     properties: {text: Register}
     type: Link
+  - event_bindings: {click: link_login_click}
     layout_properties: {}
-    event_bindings: {click: link_register_click}
-  - name: link_login
+    name: link_login
     properties: {text: Sign In}
     type: Link
+  - event_bindings: {click: link_logout_click}
     layout_properties: {}
-    event_bindings: {click: link_login_click}
-  - name: link_logout
+    name: link_logout
     properties: {text: Logout}
     type: Link
-    layout_properties: {}
-    event_bindings: {click: link_logout_click}
-- name: headline_1
+  layout_properties: {slot: nav-right}
+  name: navbar_links
+  properties: {}
+  type: FlowPanel
+- layout_properties: {slot: title}
+  name: headline_1
   properties: {role: headline, text: ArcTecFox}
   type: Label
-  layout_properties: {slot: title}
-- name: column_panel_1
-  properties: {background: 'theme:Primary 500'}
-  type: ColumnPanel
-  layout_properties: {slot: left-nav}
-  components:
-  - name: link_home
-    properties: {text: Home, foreground: 'theme:White'}
-    type: Link
+- components:
+  - event_bindings: {click: link_home_click}
     layout_properties: {grid_position: 'WJUEON,FCQDQJ'}
-    event_bindings: {click: link_home_click}
-  - name: link_vault
+    name: link_home
+    properties: {foreground: 'theme:White', text: Home}
+    type: Link
+  - event_bindings: {click: link_vault_click}
+    layout_properties: {grid_position: 'IUTKYV,ADTHYB'}
+    name: link_vault
     properties:
-      text: Vault
       foreground: theme:White
       role: [selected]
+      text: Vault
     type: Link
-    layout_properties: {grid_position: 'IUTKYV,ADTHYB'}
-    event_bindings: {click: link_vault_click}
-  - name: link_datagen
-    properties: {text: Data Generation, foreground: 'theme:White'}
-    type: Link
+  - event_bindings: {click: link_datagen_click}
     layout_properties: {grid_position: 'RWRSCL,NAWJSA'}
-    event_bindings: {click: link_datagen_click}
-  - name: link_scorecard
-    properties: {text: Scorecard, foreground: 'theme:White'}
+    name: link_datagen
+    properties: {foreground: 'theme:White', text: Data Generation}
     type: Link
+  - event_bindings: {click: link_scorecard_click}
     layout_properties: {grid_position: 'CXCWPO,AMQLXR'}
-    event_bindings: {click: link_scorecard_click}
+    name: link_scorecard
+    properties: {foreground: 'theme:White', text: Scorecard}
+    type: Link
+  layout_properties: {slot: left-nav}
+  name: column_panel_1
+  properties: {background: 'theme:Primary 500'}
+  type: ColumnPanel
+container:
+  properties: {html: '@theme:standard-page.html', role: headline}
+  type: HtmlTemplate
 custom_component: true
 custom_component_container: true
+is_package: true

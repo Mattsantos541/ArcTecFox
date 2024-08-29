@@ -1,65 +1,61 @@
-container:
-  type: ColumnPanel
-  properties: {col_widths: '{"MKSEBR":20,"ILBBSU":40,"CUFUGL":25,"PYHIEF":35}'}
 components:
-- name: label_1
-  properties: {text: Vault, align: center, font_size: 28, bold: true}
+- layout_properties: {grid_position: 'OHLUMN,PDCQFC'}
+  name: label_1
+  properties: {align: center, bold: true, font_size: 28, text: Vault}
   type: Label
-  layout_properties: {grid_position: 'OHLUMN,PDCQFC'}
-- name: text_area_1
-  properties: {text: 'Welcome to your  Vault. This is where you can upload, view,
-      and manage your datasets.', placeholder: '', align: center, border: none, foreground: roboto}
-  type: TextArea
+- data_bindings:
+  - {code: 'self.item[''email'']', property: tag, writeback: false}
   layout_properties: {grid_position: 'VIQWFO,GFAUZZ'}
-  data_bindings:
-  - {property: tag, code: 'self.item[''email'']', writeback: false}
-- name: spacer_2
+  name: text_area_1
+  properties: {align: center, border: none, foreground: roboto, placeholder: '', text: 'Welcome to your  Vault. This is where you can upload, view, and manage your datasets.'}
+  type: TextArea
+- layout_properties: {grid_position: 'DBQEFS,ADWFBB'}
+  name: spacer_2
   properties: {height: 32}
   type: Spacer
-  layout_properties: {grid_position: 'DBQEFS,ADWFBB'}
-- name: file_loader_1
-  properties: {text: Select File, icon: 'fa:upload', align: right, role: secondary-color,
-    font_size: 14, spacing_above: medium}
+- event_bindings: {change: file_loader_1_change}
+  layout_properties: {full_width_row: true, grid_position: 'EHKTXP,CUFUGL'}
+  name: file_loader_1
+  properties: {align: right, font_size: 14, icon: 'fa:upload', role: secondary-color, spacing_above: medium, text: Select File}
   type: FileLoader
-  layout_properties: {grid_position: 'EHKTXP,CUFUGL', full_width_row: true}
-  event_bindings: {change: file_loader_1_change}
-- name: button_upload
-  properties: {text: Upload Dataset, role: primary-color, align: left, font: '', font_size: 14,
-    spacing_above: medium}
+- event_bindings: {click: button_upload_click}
+  layout_properties: {full_width_row: true, grid_position: 'EHKTXP,PYHIEF'}
+  name: button_upload
+  properties: {align: left, font: '', font_size: 14, role: primary-color, spacing_above: medium, text: Upload Dataset}
   type: Button
-  layout_properties: {grid_position: 'EHKTXP,PYHIEF', full_width_row: true}
-  event_bindings: {click: button_upload_click}
-- name: spacer_3
+- layout_properties: {grid_position: 'WXENEK,JMBSVR'}
+  name: spacer_3
   properties: {height: 39}
   type: Spacer
-  layout_properties: {grid_position: 'WXENEK,JMBSVR'}
-- name: label_2
-  properties: {text: 'Dataset Description:', bold: true, align: center, border: 2px solid black}
+- layout_properties: {grid_position: 'XJSGTK,MKSEBR'}
+  name: label_2
+  properties: {align: center, bold: true, border: 2px solid black, text: 'Dataset Description:'}
   type: Label
-  layout_properties: {grid_position: 'XJSGTK,MKSEBR'}
-- name: text_box_datasetdesc
-  properties: {placeholder: 'Ex: seasonal Temperatures, team sales stats', border: '',
-    align: center}
+- layout_properties: {full_width_row: true, grid_position: 'XJSGTK,ILBBSU'}
+  name: text_box_datasetdesc
+  properties: {align: center, border: '', placeholder: 'Ex: seasonal Temperatures, team sales stats'}
   type: TextBox
-  layout_properties: {grid_position: 'XJSGTK,ILBBSU', full_width_row: true}
-- name: spacer_1
+- layout_properties: {grid_position: 'JEEYNC,SIKWKS'}
+  name: spacer_1
   properties: {height: 80}
   type: Spacer
-  layout_properties: {grid_position: 'JEEYNC,SIKWKS'}
-- name: data_grid_1
-  properties:
-    columns:
-    - {id: TRDMTW, data_key: dataset_name, title: Dataset Name}
-    - {id: DUMRPN, data_key: upload_date, title: Date Uploaded}
-    - {id: VTLEVX, data_key: Size, title: Size}
-    - {id: WVPJJJ, data_key: desc, title: Description}
-    - {id: MRZJZL, data_key: fulldataset, title: fulldataset}
-  type: DataGrid
-  components:
+- components:
   - name: repeating_panel_1
     properties: {item_template: vault.RowTemplate4}
     type: RepeatingPanel
-  layout_properties: {grid_position: 'VLJQDT,EBUIHM'}
   data_bindings:
-  - {property: tag, code: 'self.item['''']', writeback: false}
+  - {code: 'self.item['''']', property: tag, writeback: false}
+  layout_properties: {grid_position: 'VLJQDT,EBUIHM'}
+  name: data_grid_1
+  properties:
+    columns:
+    - {data_key: dataset_name, id: TRDMTW, title: Dataset Name}
+    - {data_key: upload_date, id: DUMRPN, title: Date Uploaded}
+    - {data_key: Size, id: VTLEVX, title: Size}
+    - {data_key: desc, id: WVPJJJ, title: Description}
+    - {data_key: fulldataset, id: MRZJZL, title: fulldataset}
+  type: DataGrid
+container:
+  properties: {col_widths: '{"MKSEBR":20,"ILBBSU":40,"CUFUGL":25,"PYHIEF":35}'}
+  type: ColumnPanel
 is_package: true
