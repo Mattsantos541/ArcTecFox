@@ -13,7 +13,7 @@ components:
   type: Label
 - layout_properties: {grid_position: 'CXOJES,QRCWNP'}
   name: file_loader_1
-  properties: {text: Select File}
+  properties: {align: left, text: Select File}
   type: FileLoader
 - layout_properties: {grid_position: 'ERXENG,OUVHSY'}
   name: text_box_1
@@ -21,7 +21,27 @@ components:
   type: TextBox
 - layout_properties: {grid_position: 'HUJPUL,XNMJVR'}
   name: button_1
-  properties: {text: button_1}
+  properties: {align: left, text: Preview}
   type: Button
+- layout_properties: {grid_position: 'CKFCXN,FIDVDB'}
+  name: text_area_info
+  properties: {align: center, text: Dataset Upload Info}
+  type: TextArea
+- components:
+  - name: repeating_panel_1
+    properties: {item_template: datagen.RowTemplate7}
+    type: RepeatingPanel
+  - layout_properties: {slot: footer}
+    name: button_upload
+    properties: {text: Upload Dataset}
+    type: Button
+  layout_properties: {grid_position: 'AWTFHB,ELIYWF'}
+  name: data_grid_preview
+  properties:
+    columns:
+    - {data_key: column_1, id: JKSDUP, title: Column 1}
+    - {data_key: column_2, id: VJQQOR, title: Column 2}
+    - {data_key: column_3, id: OJLQEN, title: Column 3}
+  type: DataGrid
 container: {type: ColumnPanel}
 is_package: true
