@@ -5,47 +5,48 @@ components:
   type: Label
 - layout_properties: {grid_position: 'IZODMX,CALYGG'}
   name: label_upload_instr
-  properties: {align: left, text: 'Upload your dataset in CSV, XLSX, or JSON format.'}
+  properties: {align: left, text: 'Select from your '}
   type: Label
 - layout_properties: {grid_position: 'IOGTCH,DKCIOH'}
   name: label_file_upload_instructions
   properties: {text: 'Upload your dataset (CSV, XLSX, or JSON) for immediate customization.', tooltip: 'After uploading, you can customize and generate synthetic data from the dataset.'}
   type: Label
-- layout_properties: {grid_position: 'ZFQNAX,QXJCNY'}
-  name: file_loader_dataset_quick
-  properties: {align: left, background: 'theme:Secondary 500', role: secondary-color, text: Select File, tooltip: 'Click to select a dataset (CSV, Excel, JSON)'}
-  type: FileLoader
-- layout_properties: {grid_position: 'ZFQNAX,GBFMHR'}
+- event_bindings: {change: load_vault_datasets_change}
+  layout_properties: {grid_position: 'ZFQNAX,QXJCNY'}
+  name: load_vault_datasets
+  properties:
+    background: theme:Secondary 500
+    items: [Select from Vault]
+  type: DropDown
+- layout_properties: {full_width_row: true, grid_position: 'ZFQNAX,GBFMHR'}
+  name: button_upload_dataset
+  properties: {background: 'theme:Primary 500', foreground: 'theme:White', spacing_above: small, text: Upload Dataset}
+  type: Button
+- layout_properties: {grid_position: 'HSOFDW,BJBQCZ'}
+  name: text_area_1
+  properties: {align: center, placeholder: No dataset selected yet, text: Selected Dataset}
+  type: TextArea
+- layout_properties: {grid_position: 'TIARWL,EBIZNW'}
   name: button_1
-  properties: {text: Upload Dataset}
+  properties: {text: Preview Dataset, tooltip: Preview basic statistics and a few rows from the selected or uploaded dataset}
   type: Button
-- layout_properties: {grid_position: 'ZFQNAX,JLQEWW'}
-  name: button_2
-  properties: {text: 'Preview '}
-  type: Button
-- layout_properties: {grid_position: 'PSRIOT,UJOXCQ'}
-  name: text_box_1
-  properties: {}
-  type: TextBox
 - layout_properties: {grid_position: 'CKFCXN,FIDVDB'}
   name: text_area_info
-  properties: {align: center, text: Dataset Info}
+  properties: {align: center, text: Dataset Informaton}
   type: TextArea
 - components:
   - name: repeating_panel_1
-    properties: {item_template: datagen.RowTemplate7}
+    properties: {item_template: datagen.RowTemplate8}
     type: RepeatingPanel
-  - layout_properties: {slot: footer}
-    name: button_upload
-    properties: {align: left, background: 'theme:Primary 500', role: secondary-color, text: Upload Dataset}
-    type: Button
-  layout_properties: {grid_position: 'AWTFHB,ELIYWF'}
+  layout_properties: {grid_position: 'JTUPSB,EDZSVC'}
   name: data_grid_preview
   properties:
     columns:
     - {data_key: column_1, id: JKSDUP, title: Column 1}
     - {data_key: column_2, id: VJQQOR, title: Column 2}
     - {data_key: column_3, id: OJLQEN, title: Column 3}
+    rows_per_page: 5
+    tooltip: Dataset Preview (First 5 Rows)
   type: DataGrid
 container: {type: ColumnPanel}
 is_package: true
