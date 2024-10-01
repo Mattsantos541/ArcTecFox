@@ -5,7 +5,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.users
-from ..import navigation
+from anvil import navigation
 
 
 class homeanon(homeanonTemplate):
