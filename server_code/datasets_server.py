@@ -1,7 +1,11 @@
-import anvil.server
+import anvil.users
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
+import anvil.server
+import pandas as pd
+import io
+
 
 @anvil.server.callable
 def get_vault_datasets():
@@ -12,17 +16,13 @@ def get_vault_datasets():
 def preview_vault_dataset(dataset_id):
     """Preview the dataset stored in the Vault"""
     dataset = app_tables.datasets.get_by_id(dataset_id)
-    file = dataset['fulldataset']
+    file = dataset['fulldataset']  # Assuming 'fulldataset' is the column storing the file
     
-    # Here you call the preview generation logic
     return generate_preview(file)
 
 @anvil.server.callable
 def generate_preview(file):
-    """Generate a preview of the dataset (pandas logic)"""
-    import pandas as pd
-    import io
-    
+    """Generate a preview of the dataset"""
     try:
         if file.content_type == 'text/csv':
             df = pd.read_csv(file.get_bytes_io())
@@ -33,7 +33,7 @@ def generate_preview(file):
         else:
             return "Unsupported file type.", []
 
-        # Get basic info about the dataset
+        # Generate pandas info
         buffer = io.StringIO()
         df.info(buf=buffer)
         info_output = buffer.getvalue()
@@ -42,4 +42,4 @@ def generate_preview(file):
         preview_rows = df.head().to_dict(orient='records')
         return info_output, preview_rows
     except Exception as e:
-        return f"Error: {str(e)}", []
+        return f"Error generating preview: {str(e)}", []

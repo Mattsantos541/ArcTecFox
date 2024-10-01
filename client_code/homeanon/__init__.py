@@ -5,7 +5,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.users
-from anvil import navigation
+from .. import navigation
 
 
 class homeanon(homeanonTemplate):
@@ -15,7 +15,7 @@ class homeanon(homeanonTemplate):
 
   def button_Register_click(self, **event_args):
     user = anvil.users.signup_with_form(allow_cancel=True)
-    set_account_state(user) 
+    set_account_state(self, user) 
     navigation.go_vault() 
 
 
