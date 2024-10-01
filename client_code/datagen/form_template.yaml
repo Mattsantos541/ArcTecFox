@@ -18,26 +18,31 @@ components:
     background: theme:Secondary 500
     items: [Select from Vault]
   type: DropDown
-- layout_properties: {full_width_row: true, grid_position: 'ZFQNAX,GBFMHR'}
-  name: button_upload_dataset
-  properties: {background: 'theme:Primary 500', foreground: 'theme:White', spacing_above: small, text: Upload Dataset}
-  type: Button
-- layout_properties: {grid_position: 'HSOFDW,BJBQCZ'}
-  name: text_area_1
-  properties: {align: center, placeholder: No dataset selected yet, text: Selected Dataset}
-  type: TextArea
+- layout_properties: {full_width_row: false, grid_position: 'ZFQNAX,YDETDN'}
+  name: file_loader_dataset
+  properties: {background: 'theme:Primary 500', foreground: 'theme:Black', spacing_above: small, text: Upload Dataset, tooltip: 'Upload a CSV, XLSX, or JSON file for immediate customization.'}
+  type: FileLoader
+- layout_properties: {grid_position: 'ISQRGO,ZLLVVB'}
+  name: text_box_file_name
+  properties: {align: center, placeholder: No dataset selected yet., text: Selected Dataset}
+  type: TextBox
+- layout_properties: {grid_position: 'FPGLXS,HPNJOT'}
+  name: spacer_1
+  properties: {height: 45}
+  type: Spacer
 - layout_properties: {grid_position: 'TIARWL,EBIZNW'}
-  name: button_1
-  properties: {text: Preview Dataset, tooltip: Preview basic statistics and a few rows from the selected or uploaded dataset}
+  name: button_preview
+  properties: {background: 'theme:Secondary 700', role: primary-color, text: Preview Dataset, tooltip: Preview basic statistics and a few rows from the selected or uploaded dataset}
   type: Button
 - layout_properties: {grid_position: 'CKFCXN,FIDVDB'}
   name: text_area_info
   properties: {align: center, text: Dataset Informaton}
   type: TextArea
-- components:
-  - name: repeating_panel_1
-    properties: {item_template: datagen.RowTemplate8}
-    type: RepeatingPanel
+- layout_properties: {grid_position: 'YGFXAQ,RQXQSU'}
+  name: spacer_2
+  properties: {height: 43}
+  type: Spacer
+- components: []
   layout_properties: {grid_position: 'JTUPSB,EDZSVC'}
   name: data_grid_preview
   properties:
