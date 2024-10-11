@@ -7,7 +7,7 @@ import anvil.users
 from vault import vault
 from homeanon import homeanon
 from account import account
-from datagen import Datagen 
+from datagen import datagen 
 
 from scorecard import scorecard
 
