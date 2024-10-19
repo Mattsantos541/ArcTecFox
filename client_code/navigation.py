@@ -7,7 +7,7 @@ import anvil.users
 from vault import vault
 from homeanon import homeanon
 from account import account
-from datagen import datagen 
+from datagen import datagen
 
 from scorecard import scorecard
 
@@ -51,7 +51,7 @@ def go_datagen():
 
   
   form = get_form()
-  form.load_component(Datagen())
+  form.load_component(DatagenForm())
 
 def go_scorecard():
   set_active_nav('scorecard')
