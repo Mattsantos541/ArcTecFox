@@ -1,5 +1,5 @@
 # In datagen.py
-from ._anvil_designer import DatagenFormTemplate
+from ._anvil_designer import datagenTemplate
 from anvil import *
 import anvil.server
 import anvil.tables as tables
@@ -9,10 +9,10 @@ import anvil.users
 
 
 from ..import navigation
-from .. import datasets_server
 
 
-class DatagenForm(DatagenFormTemplate):
+
+class datagen(datagenTemplate):
     def __init__(self, **properties):
         # Set Form properties and Data Bindings.
         self.init_components(**properties)
