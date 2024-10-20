@@ -51,7 +51,7 @@ def go_datagen():
 
   
   form = get_form()
-  form.load_component(Datagen())
+  form.load_component(datagen())
 
 def go_scorecard():
   set_active_nav('scorecard')

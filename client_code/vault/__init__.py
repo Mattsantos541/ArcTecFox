@@ -48,3 +48,11 @@ class vault(vaultTemplate):
         Notification("Failed to upload dataset.", timeout=3).show()
     else:
       Notification("Please select a file and enter a file description", timeout=3).show()
+
+def file_loader_1_change(self, **event_args):
+    """This method is called when the file is uploaded."""
+    file = self.file_loader_1.file
+    if file:
+        # Handle the file upload logic here
+        print(f"File uploaded: {file.name}")
+
