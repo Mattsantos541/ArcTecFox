@@ -42,16 +42,18 @@ def go_home():
     form.load_component(homeanon())
 
 def go_datagen():
-  set_active_nav('datagen')
-  set_title('DataGen')
-  user = require_account()
-  if not user:
-    go_home()
-    return
+    print("Navigating to Datagen form...")
+    set_active_nav('datagen')
+    set_title('DataGen')
 
-  
-  form = get_form()
-  form.load_component(datagen())
+    user = require_account()
+    if not user:
+        go_home()
+        return
+
+    form = get_form()
+    print("Loading Datagen form into panel...")
+    form.load_component(datagen())  # Ensure this is being called
 
 def go_scorecard():
   set_active_nav('scorecard')
