@@ -1,72 +1,81 @@
-# In datagen.py
-
-from ._anvil_designer import datagenTemplate  # Ensure this matches the auto-generated template class
+from ._anvil_designer import datagenTemplate
 from anvil import *
 import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.users
-from .. import navigation  # Assuming you're using a navigation module
-
+from .. import navigation
 
 class datagen(datagenTemplate):
     def __init__(self, **properties):
-        print("Datagen form initialized")
         # Set Form properties and Data Bindings.
         self.init_components(**properties)
-
+        print("Datagen form initialized")  # Debugging print
+        
         # Disable the preview button and dropdown initially
         self.button_preview.enabled = False
-        self.dropdown_vault_datasets.enabled = False
+        self.vault_datasets_dropdown.enabled = False  # Ensure this matches the component name in the IDE
 
         # Load datasets from the Vault on form load
-        self.load_vault_datasets()
+        self.fetch_vault_datasets()
 
-    def load_vault_datasets(self):
+    def fetch_vault_datasets(self):
         """Load datasets from the Vault and populate the dropdown"""
         try:
-            datasets = anvil.server.call('get_vault_datasets')  # Call server to get datasets
+            datasets = anvil.server.call('get_vault_datasets')
             if datasets:
-                self.dropdown_vault_datasets.items = [(row['dataset_name'], row['id']) for row in datasets]
-                self.dropdown_vault_datasets.enabled = True  # Enable dropdown if datasets are available
+                # Ensure 'vault_datasets_dropdown' matches the component name in the IDE
+                self.vault_datasets_dropdown.items = [(row['dataset_name'], row['id']) for row in datasets]
+                self.vault_datasets_dropdown.enabled = True  # Enable dropdown when data is loaded
         except Exception as e:
-            alert(f"Error loading datasets: {str(e)}")  # Show error if dataset loading fails
+            alert(f"Error loading datasets: {str(e)}")
 
-    def dropdown_vault_datasets_change(self, **event_args):
+    def vault_datasets_dropdown_change(self, **event_args):
         """When a Vault dataset is selected, display its name and enable the preview button"""
-        selected_dataset_name = self.dropdown_vault_datasets.selected_value
+        selected_dataset_name = self.vault_datasets_dropdown.selected_value
         if selected_dataset_name:
             self.text_box_file_name.text = f"Vault Dataset: {selected_dataset_name}"
-            self.button_preview.enabled = True  # Enable preview button once a dataset is selected
+            self.button_preview.enabled = True
 
     def file_loader_dataset_change(self, **event_args):
         """Triggered when a file is uploaded"""
         file = self.file_loader_dataset.file
         if file:
             self.text_box_file_name.text = f"Uploaded Dataset: {file.name}"
-            self.button_preview.enabled = True  # Enable preview button after a file is uploaded
+            self.button_preview.enabled = True
 
     def button_preview_click(self, **event_args):
         """Preview the selected or uploaded dataset"""
-        # Check if a file was uploaded or a Vault dataset was selected
         file = self.file_loader_dataset.file
-        selected_dataset_id = self.dropdown_vault_datasets.selected_value
+        selected_dataset_id = self.vault_datasets_dropdown.selected_value
         
         try:
             if file:
-                # If a file was uploaded, generate a preview
                 preview_info, preview_rows = anvil.server.call('generate_preview', file)
             elif selected_dataset_id:
-                # If a Vault dataset was selected, generate a preview for it
                 preview_info, preview_rows = anvil.server.call('preview_vault_dataset', selected_dataset_id)
             else:
                 alert("Please upload a file or select a dataset from the Vault.")
                 return
 
-            # Display the dataset preview information
             self.text_area_info.text = preview_info  # Show pandas info
             self.data_grid_preview.items = preview_rows  # Show first few rows of the dataset
-
         except Exception as e:
-            alert(f"Error generating preview: {str(e)}")  # Show error message if preview fails
+            alert(f"Error generating preview: {str(e)}")
+
+    def load_vault_datasets_change(self, **event_args):
+              """Triggered when the user selects a dataset from the dropdown"""
+    selected_dataset_id = self.dropdown_vault_datasets.selected_value
+    print(f"Selected dataset ID: {selected_dataset_id}")  # Debugging: print selected dataset
+
+          # Handle what happens when a dataset is selected.
+    if selected_dataset_id:
+    # Example: Enable preview button after a dataset is selected
+      self.button_preview.enabled = True
+      selected_dataset_name = [item[0] for item in self.dropdown_vault_datasets.items if item[1] == selected_dataset_id][0]
+      print(f"Selected dataset name: {selected_dataset_name}")  # Debugging: print selected dataset name
+      self.text_box_file_name.text = f"Selected Vault Dataset: {selected_dataset_name}"
+      
+
+

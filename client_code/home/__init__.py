@@ -76,8 +76,11 @@ class home(homeTemplate):
         navigation.go_home()
 
     def load_component(self, cmpt):
-        self.column_panel_content.clear()
-        self.column_panel_content.add_component(cmpt)
+      print("Clearing content panel and loading new component...")  # Debugging print
+      self.column_panel_content.clear()
+      self.column_panel_content.add_component(cmpt)
+      print("Component loaded into content panel.")  # Debugging print
+
 
     def set_active_nav(self, state):
         self.link_home.role = 'selected' if state == 'home' else None

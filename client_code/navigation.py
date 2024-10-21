@@ -42,18 +42,22 @@ def go_home():
     form.load_component(homeanon())
 
 def go_datagen():
-    print("Navigating to Datagen form...")
+    print("Navigating to Datagen form...")  # Debugging print
     set_active_nav('datagen')
     set_title('DataGen')
 
-    user = require_account()
+    user = require_account()  # Check if the user is logged in
     if not user:
-        go_home()
+        go_home()  # Redirect to the home page if no user is logged in
         return
 
     form = get_form()
-    print("Loading Datagen form into panel...")
-    form.load_component(datagen())  # Ensure this is being called
+    print(f"Form found: {form}")  # Debugging print to ensure the form instance is correct
+    form.column_panel_content.clear()  # Clear the content panel
+    print("Cleared content panel")  # Debugging print
+    form.load_component(datagen())  # Load the Datagen form
+    print("Datagen Form Loaded")  # Debugging print
+
 
 def go_scorecard():
   set_active_nav('scorecard')
