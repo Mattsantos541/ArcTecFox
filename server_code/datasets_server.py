@@ -43,3 +43,13 @@ def generate_preview(file):
         return info_output, preview_rows
     except Exception as e:
         return f"Error generating preview: {str(e)}", []
+
+@anvil.server.callable
+def get_user_vault_datasets():
+    """Fetch datasets for the currently logged-in user"""
+    user = anvil.users.get_user()
+    if not user:
+        raise Exception("No user is logged in")
+    
+    # Assuming 'datasets' is the table storing datasets with a 'user' column
+    return app_tables.datasets.search(user=user)
