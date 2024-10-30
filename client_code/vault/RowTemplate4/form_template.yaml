@@ -1,5 +1,6 @@
 components:
-- layout_properties: {column: AXNUYP}
+- event_bindings: {click: button_delete_click}
+  layout_properties: {column: AXNUYP}
   name: button_delete
   properties: {background: '#f80d0d', border: '', foreground: 'theme:Black', icon: 'fa:trash', text: ''}
   type: Button
