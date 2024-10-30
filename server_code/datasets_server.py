@@ -1,11 +1,9 @@
 import anvil.users
 import anvil.tables as tables
-import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 import pandas as pd
 import io
-
 
 @anvil.server.callable
 def get_vault_datasets():
@@ -53,3 +51,23 @@ def get_user_vault_datasets():
     
     # Assuming 'datasets' is the table storing datasets with a 'user' column
     return app_tables.datasets.search(user=user)
+
+@anvil.server.callable
+def upload_dataset(file, description):
+    """Uploads a dataset, stores it in the table with metadata."""
+    user = anvil.users.get_user()
+    if not user:
+        raise Exception("User must be logged in to upload a dataset.")
+
+    # Add the dataset row with file and metadata
+    app_tables.datasets.add_row(
+        user=user,
+        dataset_name=file.name,
+        upload_date=anvil.server.now(),
+        desc=description,
+        fulldataset=file,  # Storing the uploaded file as a Blob Media object
+        size=file.get_bytes().size  # Optionally store size in bytes if needed
+    )
+    
+    return "success"
+
