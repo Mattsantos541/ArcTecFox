@@ -54,20 +54,36 @@ def get_user_vault_datasets():
 
 @anvil.server.callable
 def upload_dataset(file, description):
-    """Uploads a dataset, stores it in the table with metadata."""
-    user = anvil.users.get_user()
-    if not user:
-        raise Exception("User must be logged in to upload a dataset.")
+  """Uploads a dataset to the datasets table"""
+  user = anvil.users.get_user()
+  if not user:
+    raise anvil.users.AuthenticationFailed("User must be logged in to upload a dataset")
 
-    # Add the dataset row with file and metadata
+  try:
+  # Determine file type and read data accordingly
+    if file.content_type == 'text/csv':
+      df = pd.read_csv(io.BytesIO(file.get_bytes()))
+    elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+      df = pd.read_excel(io.BytesIO(file.get_bytes()))
+    elif file.content_type == 'application/json':
+      df = pd.read_json(io.BytesIO(file.get_bytes()))
+    else:
+      return "Unsupported file type."
+
+  # Count the number of rows in the dataset
+    row_count = len(df)
+
+        # Store dataset information in the datasets table
     app_tables.datasets.add_row(
-        user=user,
-        dataset_name=file.name,
-        upload_date=anvil.server.now(),
-        desc=description,
-        fulldataset=file,  # Storing the uploaded file as a Blob Media object
-        size=file.get_bytes().size  # Optionally store size in bytes if needed
+    user=user,
+    dataset_name=file.name,
+    description=description,
+    upload_date=datetime.now(),
+    fulldataset=file,  # Save the original file in the Media column
+    size=row_count
     )
-    
+        
     return "success"
-
+  except Exception as e:
+        print(f"Error uploading dataset: {str(e)}")
+        return "failure"

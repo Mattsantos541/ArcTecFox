@@ -15,7 +15,7 @@ class datagen(datagenTemplate):
         
         # Disable the preview button and dropdown initially
         self.button_preview.enabled = False
-        self.load_vault_datasets.enabled = False  # Ensure this matches the component name in the IDE
+        self.vault_datasets_dropdown.enabled = False  # Ensure this matches the component name in the IDE
 
         # Load datasets from the Vault on form load
         self.fetch_vault_datasets()
@@ -31,7 +31,7 @@ class datagen(datagenTemplate):
         except Exception as e:
             alert(f"Error loading datasets: {str(e)}")
 
-    def load_vault_datasets(self, **event_args):
+    def vault_datasets_dropdown_change(self, **event_args):
         """When a Vault dataset is selected, display its name and enable the preview button"""
         selected_dataset_id = self.vault_datasets_dropdown.selected_value
         if selected_dataset_id:

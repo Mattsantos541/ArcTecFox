@@ -46,35 +46,3 @@ def get_user_datasets():
   user = anvil.users.get_user()
   return app_tables.datasets.search(user=user)
 
-@anvil.server.callable
-def upload_dataset(file, description):
-    user = anvil.users.get_user()
-    if not user:
-        return "User not logged in."
-
-    try:
-        # Read the dataset based on file type
-        if file.content_type == 'text/csv':
-            df = pd.read_csv(file.get_bytes_io())
-        elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-            df = pd.read_excel(file.get_bytes_io())
-        elif file.content_type == 'application/json':
-            df = pd.read_json(file.get_bytes_io())
-        else:
-            return "Unsupported file type."
-        
-        row_count = len(df)
-        
-        # Save dataset information to the Datasets Table
-        app_tables.datasets.add_row(user=user,
-                                    dataset_name=file.name,
-                                    description=description,
-                                    upload_date=datetime.now(),
-                                    fulldataset=anvil.media.from_file(file.get_bytes_io(), file.name, file.content_type),
-                                    row_count=row_count)
-        
-        return "success"
-    except Exception as e:
-        # Handle exceptions, such as issues reading the file
-        print(f"Error uploading dataset: {str(e)}")
-        return "failure"
