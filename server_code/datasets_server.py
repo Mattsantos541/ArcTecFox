@@ -60,20 +60,20 @@ def upload_dataset(file, description):
     raise anvil.users.AuthenticationFailed("User must be logged in to upload a dataset")
 
   try:
-  # # Determine file type and read data accordingly
-  #   if file.content_type == 'text/csv':
-  #     df = pd.read_csv(io.BytesIO(file.get_bytes()))
-  #   elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-  #     df = pd.read_excel(io.BytesIO(file.get_bytes()))
-  #   elif file.content_type == 'application/json':
-  #     df = pd.read_json(io.BytesIO(file.get_bytes()))
-  #   else:
-  #     return "Unsupported file type."
+  # Determine file type and read data accordingly
+    if file.content_type == 'text/csv':
+      df = pd.read_csv(io.BytesIO(file.get_bytes()))
+    elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+      df = pd.read_excel(io.BytesIO(file.get_bytes()))
+    elif file.content_type == 'application/json':
+      df = pd.read_json(io.BytesIO(file.get_bytes()))
+    else:
+      return "Unsupported file type."
 
-  # # Count the number of rows in the dataset
-  #   row_count = len(df)
+  # Count the number of rows in the dataset
+    row_count = len(df)
 
-  #       # Store dataset information in the datasets table
+        # Store dataset information in the datasets table
     app_tables.datasets.add_row(
     user=user,
     dataset_name=file.name,
