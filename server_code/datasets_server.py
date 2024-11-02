@@ -60,20 +60,20 @@ def upload_dataset(file, description):
     raise anvil.users.AuthenticationFailed("User must be logged in to upload a dataset")
 
   try:
-  # Determine file type and read data accordingly
-    if file.content_type == 'text/csv':
-      df = pd.read_csv(io.BytesIO(file.get_bytes()))
-    elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-      df = pd.read_excel(io.BytesIO(file.get_bytes()))
-    elif file.content_type == 'application/json':
-      df = pd.read_json(io.BytesIO(file.get_bytes()))
-    else:
-      return "Unsupported file type."
+  # # Determine file type and read data accordingly
+  #   if file.content_type == 'text/csv':
+  #     df = pd.read_csv(io.BytesIO(file.get_bytes()))
+  #   elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+  #     df = pd.read_excel(io.BytesIO(file.get_bytes()))
+  #   elif file.content_type == 'application/json':
+  #     df = pd.read_json(io.BytesIO(file.get_bytes()))
+  #   else:
+  #     return "Unsupported file type."
 
-  # Count the number of rows in the dataset
-    row_count = len(df)
+  # # Count the number of rows in the dataset
+  #   row_count = len(df)
 
-        # Store dataset information in the datasets table
+  #       # Store dataset information in the datasets table
     app_tables.datasets.add_row(
     user=user,
     dataset_name=file.name,
@@ -87,3 +87,74 @@ def upload_dataset(file, description):
   except Exception as e:
         print(f"Error uploading dataset: {str(e)}")
         return "failure"
+
+@anvil.server.callable
+def preview_dataset(dataset_id):
+    """Generates a preview of the dataset stored in the datasets table by ID"""
+    dataset_row = app_tables.datasets.get_by_id(dataset_id)
+    if not dataset_row:
+        return "Dataset not found.", []
+
+    file = dataset_row['fulldataset']
+    if not file:
+        return "No file found in this dataset.", []
+
+    try:
+        # Read the file based on its type and generate a preview
+        if file.content_type == 'text/csv':
+            df = pd.read_csv(io.BytesIO(file.get_bytes()))
+        elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+            df = pd.read_excel(io.BytesIO(file.get_bytes()))
+        elif file.content_type == 'application/json':
+            df = pd.read_json(io.BytesIO(file.get_bytes()))
+        else:
+            return "Unsupported file type.", []
+
+        # Generate preview information and first 5 rows
+        preview_info = df.info(buf=io.StringIO()).getvalue()  # Basic info as a string
+        preview_rows = df.head().to_dict(orient='records')    # First 5 rows as a list of dictionaries
+
+        return preview_info, preview_rows
+    except Exception as e:
+        print(f"Error generating preview: {str(e)}")
+        return f"Error generating preview: {str(e)}", []
+
+@anvil.server.callable
+def fetch_vault_datasets():
+    """Fetch datasets stored in the Vault for the current user."""
+    user = anvil.users.get_user()
+    if not user:
+        raise anvil.users.AuthenticationFailed("User must be logged in to access datasets")
+    
+    return app_tables.datasets.search(user=user)
+
+@anvil.server.callable
+def preview_dataset(dataset_id):
+    """Generates a preview of the dataset stored in the Vault by dataset ID."""
+    dataset_row = app_tables.datasets.get_by_id(dataset_id)
+    if not dataset_row:
+        return "Dataset not found.", []
+
+    file = dataset_row['fulldataset']
+    if not file:
+        return "No file found in this dataset.", []
+
+    try:
+        # Read the file based on its content type
+        if file.content_type == 'text/csv':
+            df = pd.read_csv(io.BytesIO(file.get_bytes()))
+        elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+            df = pd.read_excel(io.BytesIO(file.get_bytes()))
+        elif file.content_type == 'application/json':
+            df = pd.read_json(io.BytesIO(file.get_bytes()))
+        else:
+            return "Unsupported file type.", []
+
+        # Generate basic info and first 5 rows for preview
+        preview_info = df.info(buf=io.StringIO()).getvalue()  # Basic info as string
+        preview_rows = df.head().to_dict(orient='records')    # First 5 rows as list of dicts
+
+        return preview_info, preview_rows
+    except Exception as e:
+        print(f"Error generating preview: {str(e)}")
+        return f"Error generating preview: {str(e)}", []

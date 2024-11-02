@@ -16,16 +16,7 @@ class vault(vaultTemplate):
         # Set up an event handler for refreshing the dataset list after deletion
         self.repeating_panel_1.set_event_handler('x-refresh-datasets', self.load_datasets)
 
-    def load_datasets(self, **event_args):
-        """Fetch and display datasets for the current user."""
-        user = anvil.users.get_user()
-        print("Debug - Logged in user:", user['email'] if user else "No user logged in")
-        
-        if user:
-            # Fetch datasets associated with the logged-in user
-            datasets = app_tables.datasets.search(user=user)
-            print(f"Debug - Number of datasets found: {len(datasets)}")
-            self.repeating_panel_1.items = datasets  # Populate repeating panel directly with dataset rows
+
 
     def button_upload_click(self, **event_args):
         """Triggered when a new file and description are provided."""
@@ -47,3 +38,19 @@ class vault(vaultTemplate):
         file = self.file_loader_1.file
         if file:
             print(f"File uploaded: {file.name}")
+
+    def load_datasets(self, **event_args):
+        """Fetch and display datasets for the current user."""
+        datasets = anvil.server.call('fetch_vault_datasets')
+        self.repeating_panel_1.items = datasets
+
+    def button_preview_click(self, **event_args):
+        """Preview the selected dataset"""
+        dataset_id = self.selected_dataset_id  # Replace with the actual selection mechanism
+
+        if dataset_id:
+            preview_info, preview_rows = anvil.server.call('preview_dataset', dataset_id)
+            self.text_area_info.text = preview_info
+            self.data_grid_preview.items = preview_rows
+        else:
+            alert("Please select a dataset to preview.")
