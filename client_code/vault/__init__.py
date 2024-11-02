@@ -41,7 +41,7 @@ class vault(vaultTemplate):
 
     def load_datasets(self, **event_args):
         """Fetch and display datasets for the current user."""
-        datasets = anvil.server.call('fetch_vault_datasets')
+        datasets = anvil.server.call('get_user_vault_datasets')
         self.repeating_panel_1.items = datasets
 
     def button_preview_click(self, **event_args):
