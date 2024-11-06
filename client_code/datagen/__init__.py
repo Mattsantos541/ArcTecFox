@@ -26,7 +26,7 @@ class datagen(datagenTemplate):
             datasets = anvil.server.call('get_user_vault_datasets')  
             if datasets:
                 # Populate the dropdown with dataset names and their IDs
-                self.vault_datasets_dropdown.items = [(row['dataset_name'], row['id']) for row in datasets]
+                self.vault_datasets_dropdown.items = [(row['dataset_name'], row.get_id()) for row in datasets]
                 self.vault_datasets_dropdown.enabled = True  # Enable the dropdown after loading items
         except Exception as e:
             alert(f"Error loading datasets: {str(e)}")
@@ -52,28 +52,30 @@ class datagen(datagenTemplate):
             self.text_box_file_name.text = f"Uploaded Dataset: {file.name}"
             self.button_preview.enabled = True
 
-    def button_preview_click(self, **event_args):
-        """Preview the selected or uploaded dataset."""
-        # Check if a Vault dataset is selected or a file is uploaded
-        selected_dataset_id = self.vault_datasets_dropdown.selected_value
-        file = self.file_loader_dataset.file
-        
-        try:
-            if file:
-                # Generate preview for the uploaded file
-                preview_info, preview_rows = anvil.server.call('generate_preview', file)
-            elif selected_dataset_id:
-                # Generate preview for the selected vault dataset
-                preview_info, preview_rows = anvil.server.call('preview_dataset', selected_dataset_id)
-            else:
-                alert("Please upload a file or select a dataset from the Vault.")
-                return
+def button_preview_click(self, **event_args):
+    """Preview the selected or uploaded dataset."""
+    selected_dataset_id = self.vault_datasets_dropdown.selected_value
+    file = self.file_loader_dataset.file
+    
+    print(f"Debug - Selected dataset ID: {selected_dataset_id}")  # Debugging line
 
-            # Display the preview information
-            self.text_area_info.text = preview_info  # Show pandas info
-            self.data_grid_preview.items = preview_rows  # Show first few rows of the dataset
-        except Exception as e:
-            alert(f"Error generating preview: {str(e)}")
+    try:
+        if file:
+            # Generate preview for the uploaded file
+            preview_info, preview_rows = anvil.server.call('generate_preview', file)
+        elif selected_dataset_id:
+            # Generate preview for the selected vault dataset
+            preview_info, preview_rows = anvil.server.call('preview_dataset', selected_dataset_id)
+        else:
+            alert("Please upload a file or select a dataset from the Vault.")
+            return
+
+        # Display the preview information
+        self.text_area_info.text = preview_info  # Show pandas info
+        self.data_grid_preview.items = preview_rows  # Show first few rows of the dataset
+    except Exception as e:
+        alert(f"Error generating preview: {str(e)}")
+
 
 
 def vault_datasets_dropdown_change(self, **event_args):

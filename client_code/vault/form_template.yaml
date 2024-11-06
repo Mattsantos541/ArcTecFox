@@ -52,7 +52,7 @@ components:
     - {data_key: dataset_name, id: TRDMTW, title: Dataset Name}
     - {data_key: upload_date, id: DUMRPN, title: Date Uploaded}
     - {data_key: Size, id: VTLEVX, title: Size}
-    - {data_key: desc, id: WVPJJJ, title: Description}
+    - {data_key: desc, expand: true, id: WVPJJJ, title: Description}
     - {data_key: fulldataset, id: MRZJZL, title: fulldataset}
     - {data_key: Delete, id: AXNUYP, title: Delete, width: ''}
     visible: true
