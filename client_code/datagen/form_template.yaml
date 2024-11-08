@@ -30,7 +30,8 @@ components:
   name: spacer_1
   properties: {height: 45}
   type: Spacer
-- layout_properties: {grid_position: 'TIARWL,EBIZNW'}
+- event_bindings: {click: button_preview_click}
+  layout_properties: {grid_position: 'TIARWL,EBIZNW'}
   name: button_preview
   properties: {background: 'theme:Secondary 700', role: primary-color, text: Preview Dataset, tooltip: Preview basic statistics and a few rows from the selected or uploaded dataset}
   type: Button
