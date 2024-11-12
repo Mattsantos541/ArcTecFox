@@ -52,38 +52,36 @@ class datagen(datagenTemplate):
             self.text_box_file_name.text = f"Uploaded Dataset: {file.name}"
             self.button_preview.enabled = True
 
-def button_preview_click(self, **event_args):
-    """Preview the selected or uploaded dataset."""
-    selected_dataset_id = self.vault_datasets_dropdown.selected_value
-    file = self.file_loader_dataset.file
+    def button_preview_click(self, **event_args):
+        """Preview the selected or uploaded dataset."""
+        selected_dataset_id = self.vault_datasets_dropdown.selected_value
+        file = self.file_loader_dataset.file
 
-    try:
-        if file:
-            # Generate preview for the uploaded file
-            preview_info, preview_rows = anvil.server.call('generate_preview', file)
-        elif selected_dataset_id:
-            # Generate preview for the selected vault dataset
-            preview_info, preview_rows = anvil.server.call('preview_dataset', selected_dataset_id)
-        else:
-            alert("Please upload a file or select a dataset from the Vault.")
-            return
+        try:
+            if file:
+                # Generate preview for the uploaded file
+                preview_info, preview_rows = anvil.server.call('generate_preview', file)
+            elif selected_dataset_id:
+                # Generate preview for the selected vault dataset
+                preview_info, preview_rows = anvil.server.call('preview_dataset', selected_dataset_id)
+            else:
+                alert("Please upload a file or select a dataset from the Vault.")
+                return
 
-        # Display .info() output in the Text Area
-        self.text_area_info.text = preview_info  # .info() content here
-        
-        # Dynamically set up Data Grid columns for preview_rows
-        if preview_rows:
-            self.data_grid_preview.columns = []  # Clear existing columns
-            for key in preview_rows[0].keys():
-                self.data_grid_preview.columns.append({
-                    'id': key,
-                    'title': key,
-                    'data_key': key
-                })
-            self.data_grid_preview.items = preview_rows  # Set the preview rows in Data Grid
-        else:
-            alert("No preview rows available.")
-    except Exception as e:
-        alert(f"Error generating preview: {str(e)}")
-
-
+            # Display .info() output in the Text Area
+            self.text_area_info.text = preview_info  # .info() content here
+            
+            # Dynamically set up Data Grid columns for preview_rows
+            if preview_rows:
+                self.data_grid_preview.columns = []  # Clear existing columns
+                for key in preview_rows[0].keys():
+                    self.data_grid_preview.columns.append({
+                        'id': key,
+                        'title': key,
+                        'data_key': key
+                    })
+                self.data_grid_preview.items = preview_rows  # Set the preview rows in Data Grid
+            else:
+                alert("No preview rows available.")
+        except Exception as e:
+            alert(f"Error generating preview: {str(e)}")
