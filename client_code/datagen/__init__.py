@@ -58,20 +58,19 @@ class datagen(datagenTemplate):
         file = self.file_loader_dataset.file
 
         try:
+            # Fetch preview data from the server
             if file:
-                # Generate preview for the uploaded file
                 preview_info, preview_rows = anvil.server.call('generate_preview', file)
             elif selected_dataset_id:
-                # Generate preview for the selected vault dataset
                 preview_info, preview_rows = anvil.server.call('preview_dataset', selected_dataset_id)
             else:
                 alert("Please upload a file or select a dataset from the Vault.")
                 return
 
-            # Display .info() output in the Text Area
-            self.text_area_info.text = preview_info  # .info() content here
-            
-            # Dynamically set up Data Grid columns for preview_rows
+            # Display .info() in text_area_info
+            self.text_area_info.text = preview_info
+
+            # Set up columns in the DataGrid dynamically based on the preview rows
             if preview_rows:
                 self.data_grid_preview.columns = []  # Clear existing columns
                 for key in preview_rows[0].keys():
@@ -80,7 +79,7 @@ class datagen(datagenTemplate):
                         'title': key,
                         'data_key': key
                     })
-                self.data_grid_preview.items = preview_rows  # Set the preview rows in Data Grid
+                self.data_grid_preview.items = preview_rows  # Set items in DataGrid
             else:
                 alert("No preview rows available.")
         except Exception as e:

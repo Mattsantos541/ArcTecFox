@@ -49,12 +49,12 @@ def upload_dataset(file, description):
         print(f"Error uploading dataset: {str(e)}")
         return "failure"
 
-# Generate a preview of a file's data
+
 @anvil.server.callable
 def generate_preview(file):
-    """Generate a preview of the dataset"""
+    """Generate a preview of the dataset including .info() and the first 5 rows."""
     try:
-        # Determine file type and read data
+        # Load the dataset into a DataFrame depending on file type
         if file.content_type == 'text/csv':
             df = pd.read_csv(file.get_bytes_io())
         elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
@@ -64,14 +64,16 @@ def generate_preview(file):
         else:
             return "Unsupported file type.", []
 
-        # Generate info and preview rows
+        # Generate .info() output as a string
         buffer = io.StringIO()
         df.info(buf=buffer)
         info_output = buffer.getvalue()
-        
-        preview_rows = df.head().to_dict(orient='records')  # First 5 rows
+
+        # Extract the first 5 rows for preview
+        preview_rows = df.head().to_dict(orient='records')
         return info_output, preview_rows
     except Exception as e:
+        print(f"Error generating preview: {str(e)}")
         return f"Error generating preview: {str(e)}", []
 
 
