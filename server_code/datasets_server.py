@@ -52,7 +52,43 @@ def upload_dataset(file, description):
 # Generate a preview of a file's data
 @anvil.server.callable
 def generate_preview(file):
+    """Generate a preview of the dataset"""
     try:
+        # Determine file type and read data
+        if file.content_type == 'text/csv':
+            df = pd.read_csv(file.get_bytes_io())
+        elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+            df = pd.read_excel(file.get_bytes_io())
+        elif file.content_type == 'application/json':
+            df = pd.read_json(file.get_bytes_io())
+        else:
+            return "Unsupported file type.", []
+
+        # Generate info and preview rows
+        buffer = io.StringIO()
+        df.info(buf=buffer)
+        info_output = buffer.getvalue()
+        
+        preview_rows = df.head().to_dict(orient='records')  # First 5 rows
+        return info_output, preview_rows
+    except Exception as e:
+        return f"Error generating preview: {str(e)}", []
+
+
+# Fetch a dataset for preview by its ID
+@anvil.server.callable
+def preview_dataset(dataset_id):
+    """Generates a preview of the dataset stored in the Vault by dataset ID."""
+    dataset_row = app_tables.datasets.get_by_id(dataset_id)
+    if not dataset_row:
+        return "Dataset not found.", []
+
+    file = dataset_row['fulldataset']
+    if not file:
+        return "No file found in this dataset.", []
+
+    try:
+        # Read the file based on its content type
         if file.content_type == 'text/csv':
             df = pd.read_csv(io.BytesIO(file.get_bytes()))
         elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
@@ -62,26 +98,14 @@ def generate_preview(file):
         else:
             return "Unsupported file type.", []
 
-        # Generate pandas info and preview rows
+        # Generate basic info and first 5 rows for preview
         buffer = io.StringIO()
         df.info(buf=buffer)
         info_output = buffer.getvalue()
-        preview_rows = df.head().to_dict(orient='records')
+        
+        preview_rows = df.head().to_dict(orient='records')  # First 5 rows as list of dicts
+
         return info_output, preview_rows
     except Exception as e:
         print(f"Error generating preview: {str(e)}")
         return f"Error generating preview: {str(e)}", []
-
-# Fetch a dataset for preview by its ID
-@anvil.server.callable
-def preview_dataset(dataset_id):
-    dataset_row = app_tables.datasets.get_by_id(dataset_id)
-    if not dataset_row:
-        return "Dataset not found.", []
-
-    file = dataset_row['fulldataset']
-    if not file:
-        return "No file found in this dataset.", []
-
-    # Use the same `generate_preview` function to create the preview
-    return generate_preview(file)
