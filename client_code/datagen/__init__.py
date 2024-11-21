@@ -26,7 +26,7 @@ class datagen(datagenTemplate):
             datasets = anvil.server.call('get_user_vault_datasets')  
             if datasets:
                 # Populate the dropdown with dataset names and their IDs
-                self.vault_datasets_dropdown.items = [(row['dataset_name'], row.get_id()) for row in datasets]
+                self.vault_datasets_dropdown.items = [(row['dataset_name'], row['id']) for row in datasets]
                 self.vault_datasets_dropdown.enabled = True  # Enable the dropdown after loading items
         except Exception as e:
             alert(f"Error loading datasets: {str(e)}")
@@ -60,17 +60,17 @@ class datagen(datagenTemplate):
         try:
             # Fetch preview data from the server
             if file:
-                preview_info, preview_rows = anvil.server.call('generate_preview', file)
+                describe_output, preview_rows = anvil.server.call('generate_preview', file)
             elif selected_dataset_id:
-                preview_info, preview_rows = anvil.server.call('preview_dataset', selected_dataset_id)
+                describe_output, preview_rows = anvil.server.call('preview_dataset', selected_dataset_id)
             else:
                 alert("Please upload a file or select a dataset from the Vault.")
                 return
 
-            # Display .info() in text_area_info
-            self.text_area_info.text = preview_info
+            # Display `.describe()` output in text_area_info
+            self.text_area_info.text = describe_output
 
-            # Set up columns in the DataGrid dynamically based on the preview rows
+            # Dynamically set up Data Grid columns for preview_rows
             if preview_rows:
                 self.data_grid_preview.columns = []  # Clear existing columns
                 for key in preview_rows[0].keys():
@@ -79,8 +79,12 @@ class datagen(datagenTemplate):
                         'title': key,
                         'data_key': key
                     })
-                self.data_grid_preview.items = preview_rows  # Set items in DataGrid
+                self.data_grid_preview.items = preview_rows  # Set items in Data Grid
             else:
                 alert("No preview rows available.")
         except Exception as e:
             alert(f"Error generating preview: {str(e)}")
+
+    def text_box_file_name_pressed_enter(self, **event_args):
+      """This method is called when the user presses Enter in this text box"""
+      pass
