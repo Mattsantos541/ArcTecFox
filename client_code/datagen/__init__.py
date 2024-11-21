@@ -11,7 +11,7 @@ class datagen(datagenTemplate):
         # Set Form properties and Data Bindings
         self.init_components(**properties)
         print("Datagen form initialized")  # Debugging print
-        
+
         # Disable the preview button and dropdown initially
         self.button_preview.enabled = False
         self.vault_datasets_dropdown.enabled = False  # Ensure this matches the component name in the IDE
@@ -23,7 +23,7 @@ class datagen(datagenTemplate):
         """Load datasets from the Vault and populate the dropdown."""
         try:
             # Calls the server function to get datasets for the current user
-            datasets = anvil.server.call('get_user_vault_datasets')  
+            datasets = anvil.server.call('get_user_vault_datasets')
             if datasets:
                 # Populate the dropdown with dataset names and their IDs
                 self.vault_datasets_dropdown.items = [(row['dataset_name'], row['id']) for row in datasets]
@@ -32,11 +32,13 @@ class datagen(datagenTemplate):
             alert(f"Error loading datasets: {str(e)}")
 
     def vault_datasets_dropdown_change(self, **event_args):
-        """When a Vault dataset is selected, display its name and enable the preview button."""
+        """Triggered when a Vault dataset is selected."""
         selected_dataset_id = self.vault_datasets_dropdown.selected_value
         if selected_dataset_id:
             # Find the selected dataset name
-            selected_dataset_name = [item[0] for item in self.vault_datasets_dropdown.items if item[1] == selected_dataset_id][0]
+            selected_dataset_name = next(
+                item[0] for item in self.vault_datasets_dropdown.items if item[1] == selected_dataset_id
+            )
             print(f"Selected dataset ID: {selected_dataset_id}")  # Debugging: print selected dataset ID
             print(f"Selected dataset name: {selected_dataset_name}")  # Debugging: print selected dataset name
 
@@ -49,7 +51,9 @@ class datagen(datagenTemplate):
         """Triggered when a file is uploaded."""
         file = self.file_loader_dataset.file
         if file:
+            # Update UI with uploaded file name
             self.text_box_file_name.text = f"Uploaded Dataset: {file.name}"
+            # Enable preview button after file upload
             self.button_preview.enabled = True
 
     def button_preview_click(self, **event_args):
@@ -86,5 +90,5 @@ class datagen(datagenTemplate):
             alert(f"Error generating preview: {str(e)}")
 
     def text_box_file_name_pressed_enter(self, **event_args):
-      """This method is called when the user presses Enter in this text box"""
-      pass
+        """This method is called when the user presses Enter in this text box."""
+        pass  # No special logic needed unless you want user-entered names
