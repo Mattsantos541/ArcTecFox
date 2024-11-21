@@ -52,8 +52,9 @@ def upload_dataset(file, description):
 
 @anvil.server.callable
 def generate_preview(file):
-    """Generate a preview of the dataset including .info() and the first 5 rows."""
+    """Generate a preview of the dataset including .describe() and the first 5 rows."""
     try:
+
         # Load the dataset into a DataFrame depending on file type
         if file.content_type == 'text/csv':
             df = pd.read_csv(file.get_bytes_io())
@@ -64,23 +65,24 @@ def generate_preview(file):
         else:
             return "Unsupported file type.", []
 
-        # Generate .info() output as a string
-        buffer = io.StringIO()
-        df.info(buf=buffer)
-        info_output = buffer.getvalue()
+        # Generate .describe() output as a string
+        describe_output = df.describe(include='all').to_string()  # Include all columns
 
         # Extract the first 5 rows for preview
         preview_rows = df.head().to_dict(orient='records')
-        return info_output, preview_rows
+        return describe_output, preview_rows
     except Exception as e:
         print(f"Error generating preview: {str(e)}")
         return f"Error generating preview: {str(e)}", []
 
 
-# Fetch a dataset for preview by its ID
 @anvil.server.callable
 def preview_dataset(dataset_id):
     """Generates a preview of the dataset stored in the Vault by dataset ID."""
+    import pandas as pd
+    import io
+
+    # Fetch the dataset row by its ID
     dataset_row = app_tables.datasets.get_by_id(dataset_id)
     if not dataset_row:
         return "Dataset not found.", []
@@ -100,14 +102,13 @@ def preview_dataset(dataset_id):
         else:
             return "Unsupported file type.", []
 
-        # Generate basic info and first 5 rows for preview
-        buffer = io.StringIO()
-        df.info(buf=buffer)
-        info_output = buffer.getvalue()
-        
-        preview_rows = df.head().to_dict(orient='records')  # First 5 rows as list of dicts
+        # Generate .describe() output as a string
+        describe_output = df.describe(include='all').to_string()  # Include all columns
 
-        return info_output, preview_rows
+        # Extract the first 5 rows for preview
+        preview_rows = df.head().to_dict(orient='records')
+
+        return describe_output, preview_rows
     except Exception as e:
         print(f"Error generating preview: {str(e)}")
         return f"Error generating preview: {str(e)}", []
