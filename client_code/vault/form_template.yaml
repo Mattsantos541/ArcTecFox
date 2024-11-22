@@ -14,9 +14,9 @@ components:
   properties: {height: 32}
   type: Spacer
 - event_bindings: {change: file_loader_1_change}
-  layout_properties: {full_width_row: true, grid_position: 'EHKTXP,CUFUGL'}
+  layout_properties: {grid_position: 'EHKTXP,CUFUGL'}
   name: file_loader_1
-  properties: {align: right, font_size: 14, icon: 'fa:upload', role: secondary-color, spacing_above: medium, text: Select File}
+  properties: {align: left, font_size: 14, icon: 'fa:upload', role: secondary-color, spacing_above: medium, text: Select File}
   type: FileLoader
 - event_bindings: {click: button_upload_click}
   layout_properties: {full_width_row: true, grid_position: 'EHKTXP,PYHIEF'}

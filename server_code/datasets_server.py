@@ -54,6 +54,8 @@ def upload_dataset(file, description):
 def generate_preview(file):
     """Generate a preview of the dataset including .describe() and the first 5 rows."""
     try:
+        import pandas as pd
+        import io
 
         # Load the dataset into a DataFrame depending on file type
         if file.content_type == 'text/csv':
@@ -65,6 +67,17 @@ def generate_preview(file):
         else:
             return "Unsupported file type.", []
 
+        # Sanitize columns to prevent mixed-type issues
+        for col in df.columns:
+            if df[col].dtype == 'object':  # Check for mixed types
+                try:
+                    # Attempt to convert to numeric; fallback to string if it fails
+                    df[col] = pd.to_numeric(df[col], errors='ignore')
+                except Exception as e:
+                    print(f"Error processing column {col}: {e}")
+            elif df[col].dtype == 'int' or df[col].dtype == 'float':
+                continue  # No action needed for numeric columns
+
         # Generate .describe() output as a string
         describe_output = df.describe(include='all').to_string()  # Include all columns
 
@@ -74,6 +87,7 @@ def generate_preview(file):
     except Exception as e:
         print(f"Error generating preview: {str(e)}")
         return f"Error generating preview: {str(e)}", []
+
 
 
 @anvil.server.callable
