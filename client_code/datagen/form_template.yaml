@@ -37,7 +37,7 @@ components:
   type: Button
 - layout_properties: {grid_position: 'CKFCXN,FIDVDB'}
   name: text_area_info
-  properties: {align: center, text: Dataset Informaton}
+  properties: {align: left, text: Dataset Informaton}
   type: TextArea
 - layout_properties: {grid_position: 'YGFXAQ,RQXQSU'}
   name: spacer_2

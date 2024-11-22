@@ -4,7 +4,9 @@ from anvil.tables import app_tables
 import anvil.server
 import pandas as pd
 import io
+from tabulate import tabulate  # For text formatting
 from datetime import datetime  # Add datetime import
+
 
 # Fetch datasets available to the current user
 @anvil.server.callable
@@ -13,6 +15,7 @@ def get_user_vault_datasets():
     if not user:
         raise Exception("No user is logged in")
     return app_tables.datasets.search(user=user)
+
 
 # Upload a dataset
 @anvil.server.callable
@@ -50,63 +53,23 @@ def upload_dataset(file, description):
         return "failure"
 
 
+
+
+def clean_preview_data(df):
+    """Clean the dataset for preview by handling missing values and mixed types."""
+    df.fillna("N/A", inplace=True)  # Replace missing values with "N/A"
+    for col in df.columns:
+        if df[col].dtype == 'object':  # Check for mixed types
+            try:
+                df[col] = pd.to_numeric(df[col], errors='ignore')
+            except Exception as e:
+                print(f"Error processing column {col}: {e}")
+    return df
+
 @anvil.server.callable
 def generate_preview(file):
-    """Generate a preview of the dataset including .describe() and the first 5 rows."""
+    """Generate a preview of the dataset."""
     try:
-        import pandas as pd
-        import io
-
-        # Load the dataset into a DataFrame depending on file type
-        if file.content_type == 'text/csv':
-            df = pd.read_csv(file.get_bytes_io())
-        elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-            df = pd.read_excel(file.get_bytes_io())
-        elif file.content_type == 'application/json':
-            df = pd.read_json(file.get_bytes_io())
-        else:
-            return "Unsupported file type.", []
-
-        # Sanitize columns to prevent mixed-type issues
-        for col in df.columns:
-            if df[col].dtype == 'object':  # Check for mixed types
-                try:
-                    # Attempt to convert to numeric; fallback to string if it fails
-                    df[col] = pd.to_numeric(df[col], errors='ignore')
-                except Exception as e:
-                    print(f"Error processing column {col}: {e}")
-            elif df[col].dtype == 'int' or df[col].dtype == 'float':
-                continue  # No action needed for numeric columns
-
-        # Generate .describe() output as a string
-        describe_output = df.describe(include='all').to_string()  # Include all columns
-
-        # Extract the first 5 rows for preview
-        preview_rows = df.head().to_dict(orient='records')
-        return describe_output, preview_rows
-    except Exception as e:
-        print(f"Error generating preview: {str(e)}")
-        return f"Error generating preview: {str(e)}", []
-
-
-
-@anvil.server.callable
-def preview_dataset(dataset_id):
-    """Generates a preview of the dataset stored in the Vault by dataset ID."""
-    import pandas as pd
-    import io
-
-    # Fetch the dataset row by its ID
-    dataset_row = app_tables.datasets.get_by_id(dataset_id)
-    if not dataset_row:
-        return "Dataset not found.", []
-
-    file = dataset_row['fulldataset']
-    if not file:
-        return "No file found in this dataset.", []
-
-    try:
-        # Read the file based on its content type
         if file.content_type == 'text/csv':
             df = pd.read_csv(io.BytesIO(file.get_bytes()))
         elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
@@ -116,13 +79,46 @@ def preview_dataset(dataset_id):
         else:
             return "Unsupported file type.", []
 
-        # Generate .describe() output as a string
-        describe_output = df.describe(include='all').to_string()  # Include all columns
+        # Clean the dataset
+        df = clean_preview_data(df)
 
-        # Extract the first 5 rows for preview
-        preview_rows = df.head().to_dict(orient='records')
-
+        # Format .describe() output
+        describe_output = tabulate(df.describe(include="all"), headers="keys", tablefmt="grid")
+        preview_rows = df.head(5).to_dict(orient="records")  # First 10 rows
         return describe_output, preview_rows
     except Exception as e:
-        print(f"Error generating preview: {str(e)}")
-        return f"Error generating preview: {str(e)}", []
+        print(f"Error generating preview: {e}")
+        return f"Error generating preview: {e}", []
+
+@anvil.server.callable
+def preview_dataset(dataset_id):
+    """Generates a preview of the dataset stored in the Vault."""
+    try:
+        dataset_row = app_tables.datasets.get_by_id(dataset_id)
+        if not dataset_row:
+            return "Dataset not found.", []
+
+        file = dataset_row['fulldataset']
+        if not file:
+            return "No file found.", []
+
+        if file.content_type == 'text/csv':
+            df = pd.read_csv(io.BytesIO(file.get_bytes()))
+        elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+            df = pd.read_excel(io.BytesIO(file.get_bytes()))
+        elif file.content_type == 'application/json':
+            df = pd.read_json(io.BytesIO(file.get_bytes()))
+        else:
+            return "Unsupported file type.", []
+
+        # Clean and format the dataset
+        df = clean_preview_data(df)
+        describe_output = tabulate(df.describe(include="all"), headers="keys", tablefmt="grid")
+        preview_rows = df.head(10).to_dict(orient="records")
+        return describe_output, preview_rows
+    except Exception as e:
+        print(f"Error previewing dataset: {e}")
+        return f"Error previewing dataset: {e}", []
+
+      
+  

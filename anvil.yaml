@@ -77,7 +77,9 @@ dependencies:
   version: {dev: false}
 metadata: {logo_img: 'asset:F89A759F-19C6-451F-B0E8-8465883A4F6D_1_201_a.jpeg', title: ArcTecFox}
 name: ArcTecFox
-native_deps: {head_html: ''}
+native_deps:
+  head_html: |2+
+
 package_name: ArcTecFox
 runtime_options:
   client_version: '3'
