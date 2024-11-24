@@ -53,17 +53,19 @@ def upload_dataset(file, description):
         return "failure"
 
 
-
-
 def clean_preview_data(df):
-    """Clean the dataset for preview by handling missing values and mixed types."""
-    df.fillna("N/A", inplace=True)  # Replace missing values with "N/A"
+    """Clean the dataset to handle mixed data types and missing values."""
+    df.fillna("N/A", inplace=True)
     for col in df.columns:
-        if df[col].dtype == 'object':  # Check for mixed types
+        if df[col].dtype == 'object':
             try:
                 df[col] = pd.to_numeric(df[col], errors='ignore')
             except Exception as e:
                 print(f"Error processing column {col}: {e}")
+        elif df[col].dtype == 'int' or df[col].dtype == 'float':
+            continue
+        else:
+            df[col] = df[col].astype(str)
     return df
 
 @anvil.server.callable
@@ -77,18 +79,20 @@ def generate_preview(file):
         elif file.content_type == 'application/json':
             df = pd.read_json(io.BytesIO(file.get_bytes()))
         else:
-            return "Unsupported file type.", []
+            return "Unsupported file type.", "No rows to display."
 
         # Clean the dataset
         df = clean_preview_data(df)
 
         # Format .describe() output
         describe_output = tabulate(df.describe(include="all"), headers="keys", tablefmt="grid")
-        preview_rows = df.head(5).to_dict(orient="records")  # First 10 rows
-        return describe_output, preview_rows
+        # Format .head(10) for display
+        head_output = tabulate(df.head(10), headers="keys", tablefmt="grid")
+
+        return describe_output, head_output
     except Exception as e:
         print(f"Error generating preview: {e}")
-        return f"Error generating preview: {e}", []
+        return f"Error generating preview: {e}", "No rows to display."
 
 @anvil.server.callable
 def preview_dataset(dataset_id):
