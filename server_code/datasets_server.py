@@ -45,33 +45,43 @@ def upload_dataset(file, description):
             upload_date=datetime.now(),
             fulldataset=file,
             size=row_count
-        )
-        
-        return "success"
-    except Exception as e:
-        print(f"Error uploading dataset: {str(e)}")
-        return "failure"
+          )
+          
+          return "success"
+      except Exception as e:
+          print(f"Error uploading dataset: {str(e)}")
+          return "failure"
+  
 
+def clean_preview_data(df, max_columns=5):
+    """
+    Clean the dataset to handle mixed data types, missing values, and column limits.
+    """
+    df.fillna("N/A", inplace=True)  # Replace missing values with a placeholder
 
-def clean_preview_data(df):
-    """Clean the dataset to handle mixed data types and missing values."""
-    df.fillna("N/A", inplace=True)
+    # Convert columns with mixed data types to strings
     for col in df.columns:
         if df[col].dtype == 'object':
             try:
-                df[col] = pd.to_numeric(df[col], errors='ignore')
+                df[col] = pd.to_numeric(df[col], errors='ignore')  # Convert to numeric where possible
             except Exception as e:
                 print(f"Error processing column {col}: {e}")
-        elif df[col].dtype == 'int' or df[col].dtype == 'float':
-            continue
-        else:
-            df[col] = df[col].astype(str)
+        elif not pd.api.types.is_numeric_dtype(df[col]):
+            df[col] = df[col].astype(str)  # Convert non-numeric columns to strings
+
+    # Limit the number of columns to max_columns
+    if len(df.columns) > max_columns:
+        df = df.iloc[:, :max_columns]
+
     return df
 
 @anvil.server.callable
-def generate_preview(file):
-    """Generate a preview of the dataset."""
+def generate_preview(file, max_columns=5):
+    """
+    Generate a preview of the dataset, showing a limited number of columns and rows.
+    """
     try:
+        # Load the dataset based on file type
         if file.content_type == 'text/csv':
             df = pd.read_csv(io.BytesIO(file.get_bytes()))
         elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
@@ -81,18 +91,24 @@ def generate_preview(file):
         else:
             return "Unsupported file type.", "No rows to display."
 
-        # Clean the dataset
-        df = clean_preview_data(df)
+        # Clean and limit the dataset
+        df = clean_preview_data(df, max_columns=max_columns)
 
-        # Format .describe() output
-        describe_output = tabulate(df.describe(include="all"), headers="keys", tablefmt="grid")
-        # Format .head(10) for display
+        # Generate .describe() for numerical columns only
+        numeric_cols = df.select_dtypes(include='number')
+        if not numeric_cols.empty:
+            describe_output = tabulate(numeric_cols.describe(), headers="keys", tablefmt="grid")
+        else:
+            describe_output = "No numeric columns available for summary."
+
+        # Generate a preview of the first 10 rows (cleaned and truncated)
         head_output = tabulate(df.head(10), headers="keys", tablefmt="grid")
 
         return describe_output, head_output
     except Exception as e:
         print(f"Error generating preview: {e}")
         return f"Error generating preview: {e}", "No rows to display."
+
 
 @anvil.server.callable
 def preview_dataset(dataset_id):

@@ -17,7 +17,7 @@ class datagen(datagenTemplate):
         self.text_area_datapreview.width = "800px"
 
       # Make Data Preview larger by default
-        self.text_area_info.height = "500px"
+        self.text_areAAAAAA````````````````RDXWQASFCYa_info.height = "500px"
         self.text_area_info.widthe = "800px"
         # Disable the preview button and dropdown initially
         self.button_preview.enabled = False
@@ -75,31 +75,31 @@ class datagen(datagenTemplate):
             print(f"Error handling file upload: {e}")
             alert(f"Error handling file upload: {e}")
 
-    def button_preview_click(self, **event_args):
-        """Preview the selected or uploaded dataset."""
-        try:
-            print("Preview button clicked.")
-            selected_dataset_id = self.vault_datasets_dropdown.selected_value
-            file = self.file_loader_dataset.file
+def button_preview_click(self, **event_args):
+    """Preview the selected or uploaded dataset."""
+    try:
+        print("Preview button clicked.")
+        selected_dataset_id = self.vault_datasets_dropdown.selected_value
+        file = self.file_loader_dataset.file
 
-            if file:
-                print("Generating preview for uploaded file...")
-                describe_output, head_output = anvil.server.call('generate_preview', file)
-            elif selected_dataset_id:
-                print(f"Generating preview for selected dataset ID: {selected_dataset_id}")
-                describe_output, head_output = anvil.server.call('preview_dataset', selected_dataset_id)
-            else:
-                alert("Please upload a file or select a dataset.")
-                print("No file or dataset selected for preview.")
-                return
+        if file:
+            print("Generating preview for uploaded file...")
+            describe_output, head_output = anvil.server.call('generate_preview', file, max_columns=5)
+        elif selected_dataset_id:
+            print(f"Generating preview for selected dataset ID: {selected_dataset_id}")
+            describe_output, head_output = anvil.server.call('preview_dataset', selected_dataset_id, max_columns=5)
+        else:
+            alert("Please upload a file or select a dataset.")
+            print("No file or dataset selected for preview.")
+            return
 
-            # Display describe output and .head(10) in text areas
-            self.text_area_info.text = describe_output
-            self.text_area_datapreview.text = head_output
+        # Display outputs in the text areas
+        self.text_area_info.text = describe_output  # Numerical .describe()
+        self.text_area_datapreview.text = head_output  # All columns .head(10)
 
-            print("Preview displayed in text areas.")
-        except Exception as e:
-            print(f"Error generating preview: {e}")
-            alert(f"Error generating preview: {e}")
-
+        print("Preview displayed in text areas.")
+    except Exception as e:
+        print(f"Error generating preview: {e}")
+        alert(f"Error generating preview: {e}")
+11
 
