@@ -46,9 +46,8 @@ def upload_dataset(file, description):
             fulldataset=file,
             size=row_count
           )
-          
-          return "success"
-      except Exception as e:
+        return "success"
+    except Exception as e:
           print(f"Error uploading dataset: {str(e)}")
           return "failure"
   
